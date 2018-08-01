@@ -1,0 +1,88 @@
+{% extends "base.html" %}
+{% load staticfiles %}
+
+{% block scrumb %}
+            <div class="ks-page-header">
+                <section class="ks-title-and-subtitle">
+                    <div class="ks-title-block">
+                        <h3 class="ks-main-title">Agregar Administrador</h3>
+                        <div class="ks-sub-title">El Admin agregado tendra acceso al panel de Provity.</div>
+                    </div>
+                </section>
+            </div>
+        {% endblock %}
+
+{% block contenido %}
+<div class="ks-dashboard-tabbed-sidebar-widgets">
+                        <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Agregar Administrador</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true" class="la la-user"></span>
+                </button>
+            </div>
+            {{ form.errors }}
+            <div class="modal-body">
+                <div class="container-fluid">
+                    <form class="form-container" method="post">{% csrf_token %}
+                        <div class="form-group row">
+                            <label for="example-text-input" class="col-4 col-form-label">Nombres</label>
+                            <div class="col-8">
+                                <input class="form-control" type="text" name="nombres" value="{{ form.nombres.value | default:''}}" id="example-name-input">
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label for="example-search-input" class="col-4 col-form-label">Apellidos</label>
+                            <div class="col-8">
+                                <input class="form-control" type="text" name="apellidos" value="{{ form.apellidos.value | default:''}}" id="example-apellido-input">
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label for="example-email-input" class="col-4 col-form-label">Correo Electronico</label>
+                            <div class="col-8">
+                                <input class="form-control" type="email" name="email" value="{{ form.email.value | default:''}}" id="example-email-input">
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label for="example-url-input" class="col-4 col-form-label">C.I. N°</label>
+                            <div class="col-8">
+                                <input class="form-control" type="text" name="legajo" value="{{ form.legajo.value | default:''}}" id="example-url-input">
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label for="example-tel-input" class="col-4 col-form-label">Nombre de Usuario</label>
+                            <div class="col-8">
+                                <input id="username" onkeyup="reply()" class="form-control" type="text" name="username" value="{{ form.username.value | default:''}}" id="example-username-input">
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label for="example-tel-input" class="col-4 col-form-label">Contraseña</label>
+                            <div class="col-8">
+                                <input readonly style="border: none;" id="password" class="form-control" type="password" id="example-username-input">
+                                <small class="form-text text-muted">Por defecto la contraseña es igual al nombre de usuario.</small>
+                                <small class="form-text text-muted">El usuario puede cambiar su contraseña desde el panel.</small>
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <div class="text-center col-sm-12">
+                                <button type="submit" class="btn btn-primary">Registrar Administrador</button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+{% block extra_scripts %}
+    <script type="text/javascript">
+        function reply(){
+            //get the input elements from HTML DOM
+            var textOne = document.getElementById("username").value;
+            var textTwo = document.getElementById("password");
+            textTwo.value = textOne;
+        }
+    </script>
+{% endblock %}

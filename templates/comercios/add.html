@@ -1,0 +1,102 @@
+{% extends "base.html" %}
+{% load staticfiles %}
+
+{% block extra_estilos %}
+    <style type="text/css">
+        .mapa {
+            height: 350px !important;
+            width: 100% !important;
+            margin-bottom: 20px;
+        }
+    </style>
+{% endblock %}
+
+{% block scrumb %}
+            <div class="ks-page-header">
+                <section class="ks-title-and-subtitle">
+                    <div class="ks-title-block">
+                        <h3 class="ks-main-title">Agregar Área</h3>
+                    </div>
+                </section>
+            </div>
+        {% endblock %}
+
+{% block contenido %}
+<div class="ks-dashboard-tabbed-sidebar-widgets">
+    <div class="modal-dialog" style="max-width: 90% !important; margin-top: 5px !important;">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Agregar Área</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true" class="la la-map-marker"></span>
+                </button>
+            </div>
+            {{ form.errors }}
+            <div class="modal-body">
+                <div class="container-fluid">
+                    <form class="form-container" method="post">{% csrf_token %}
+                        <div class="form-group row">
+                            <label for="example-text-input" class="col-4 col-form-label">Nombre del Área</label>
+                            <div class="col-8">
+                                <input required class="form-control" type="text" name="nombre" id="example-name-input">
+                            </div>
+                            <input required style="display: none;" class="form-control" type="text" name="array" id="array">
+                        </div>
+                        <div class="alert alert-primary ks-solid-light ks-active-border" role="alert">
+                            Debe trazar los puntos del área en el mapa.
+                        </div>
+                        <div id="map" class="mapa"></div>
+                        <div class="form-group row">
+                            <div class="text-center col-sm-12">
+                                <button type="submit" class="btn btn-primary">Registrar Área</button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block extra_scripts %}
+    <script async defer
+        src="https://maps.googleapis.com/maps/api/js?key=AIzaSyC0Bz4yuEg89NpooiBw0Po1x64d96FtJwU&callback=initMap">
+    </script>
+    <script>
+
+        // This example adds a UI control allowing users to remove the polyline from the
+        // map.
+
+        var area;
+        var map;
+        var array = [];
+
+        function initMap() {
+            map = new google.maps.Map(document.getElementById('map'), {
+              zoom: 15,
+              center: {lat: -25.2914631, lng: -57.5815894},
+              mapTypeId: 'terrain'
+            });
+
+            area = new google.maps.MVCArray();
+
+            var polylineOptions =   { path:area }
+            var polygon        =   new google.maps.Polygon(polylineOptions);
+            polygon.setMap(map);
+
+            map.addListener('click', function(e) {
+                var currentPath =   polygon.getPath();
+                currentPath.push(e.latLng);
+                array.push({'lat':e.latLng.lat(),'long':e.latLng.lng()});
+                console.log(array);
+                $('#array').val(JSON.stringify(array))
+            });
+        }
+
+
+        function removeLine() {
+            area.setMap(null);
+        }
+    </script>
+{% endblock %}

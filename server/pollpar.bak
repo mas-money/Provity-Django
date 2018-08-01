@@ -1,0 +1,2099 @@
+--
+-- PostgreSQL database dump
+--
+
+SET statement_timeout = 0;
+SET lock_timeout = 0;
+SET client_encoding = 'UTF8';
+SET standard_conforming_strings = on;
+SET check_function_bodies = false;
+SET client_min_messages = warning;
+
+--
+-- Name: plpgsql; Type: EXTENSION; Schema: -; Owner: 
+--
+
+CREATE EXTENSION IF NOT EXISTS plpgsql WITH SCHEMA pg_catalog;
+
+
+--
+-- Name: EXTENSION plpgsql; Type: COMMENT; Schema: -; Owner: 
+--
+
+COMMENT ON EXTENSION plpgsql IS 'PL/pgSQL procedural language';
+
+
+SET search_path = public, pg_catalog;
+
+SET default_tablespace = '';
+
+SET default_with_oids = false;
+
+--
+-- Name: account_emailaddress; Type: TABLE; Schema: public; Owner: pollpar; Tablespace: 
+--
+
+CREATE TABLE account_emailaddress (
+    id integer NOT NULL,
+    email character varying(254) NOT NULL,
+    verified boolean NOT NULL,
+    "primary" boolean NOT NULL,
+    user_id integer NOT NULL
+);
+
+
+ALTER TABLE public.account_emailaddress OWNER TO pollpar;
+
+--
+-- Name: account_emailaddress_id_seq; Type: SEQUENCE; Schema: public; Owner: pollpar
+--
+
+CREATE SEQUENCE account_emailaddress_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.account_emailaddress_id_seq OWNER TO pollpar;
+
+--
+-- Name: account_emailaddress_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: pollpar
+--
+
+ALTER SEQUENCE account_emailaddress_id_seq OWNED BY account_emailaddress.id;
+
+
+--
+-- Name: account_emailconfirmation; Type: TABLE; Schema: public; Owner: pollpar; Tablespace: 
+--
+
+CREATE TABLE account_emailconfirmation (
+    id integer NOT NULL,
+    created timestamp with time zone NOT NULL,
+    sent timestamp with time zone,
+    key character varying(64) NOT NULL,
+    email_address_id integer NOT NULL
+);
+
+
+ALTER TABLE public.account_emailconfirmation OWNER TO pollpar;
+
+--
+-- Name: account_emailconfirmation_id_seq; Type: SEQUENCE; Schema: public; Owner: pollpar
+--
+
+CREATE SEQUENCE account_emailconfirmation_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.account_emailconfirmation_id_seq OWNER TO pollpar;
+
+--
+-- Name: account_emailconfirmation_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: pollpar
+--
+
+ALTER SEQUENCE account_emailconfirmation_id_seq OWNED BY account_emailconfirmation.id;
+
+
+--
+-- Name: app_jefesupermercado; Type: TABLE; Schema: public; Owner: pollpar; Tablespace: 
+--
+
+CREATE TABLE app_jefesupermercado (
+    id integer NOT NULL,
+    nombres character varying(50),
+    apellidos character varying(50),
+    email character varying(50),
+    usuario_id integer NOT NULL
+);
+
+
+ALTER TABLE public.app_jefesupermercado OWNER TO pollpar;
+
+--
+-- Name: app_jefesupermercado_id_seq; Type: SEQUENCE; Schema: public; Owner: pollpar
+--
+
+CREATE SEQUENCE app_jefesupermercado_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.app_jefesupermercado_id_seq OWNER TO pollpar;
+
+--
+-- Name: app_jefesupermercado_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: pollpar
+--
+
+ALTER SEQUENCE app_jefesupermercado_id_seq OWNED BY app_jefesupermercado.id;
+
+
+--
+-- Name: app_marcacione; Type: TABLE; Schema: public; Owner: pollpar; Tablespace: 
+--
+
+CREATE TABLE app_marcacione (
+    id integer NOT NULL,
+    lugar character varying(200) NOT NULL,
+    estado character varying(40),
+    latitud character varying(200),
+    longitud character varying(200),
+    fecha character varying(100),
+    hora character varying(100),
+    observaciones character varying(150),
+    device_id character varying(200),
+    zona character varying(200),
+    "timestamp" timestamp with time zone NOT NULL,
+    usuario_id integer NOT NULL
+);
+
+
+ALTER TABLE public.app_marcacione OWNER TO pollpar;
+
+--
+-- Name: app_marcacione_id_seq; Type: SEQUENCE; Schema: public; Owner: pollpar
+--
+
+CREATE SEQUENCE app_marcacione_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.app_marcacione_id_seq OWNER TO pollpar;
+
+--
+-- Name: app_marcacione_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: pollpar
+--
+
+ALTER SEQUENCE app_marcacione_id_seq OWNED BY app_marcacione.id;
+
+
+--
+-- Name: app_perfile; Type: TABLE; Schema: public; Owner: pollpar; Tablespace: 
+--
+
+CREATE TABLE app_perfile (
+    id integer NOT NULL,
+    telefono_id character varying(40),
+    sexo character varying(40),
+    legajo character varying(40),
+    jefe_id integer,
+    usuario_id integer NOT NULL
+);
+
+
+ALTER TABLE public.app_perfile OWNER TO pollpar;
+
+--
+-- Name: app_perfile_id_seq; Type: SEQUENCE; Schema: public; Owner: pollpar
+--
+
+CREATE SEQUENCE app_perfile_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.app_perfile_id_seq OWNER TO pollpar;
+
+--
+-- Name: app_perfile_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: pollpar
+--
+
+ALTER SEQUENCE app_perfile_id_seq OWNED BY app_perfile.id;
+
+
+--
+-- Name: auth_group; Type: TABLE; Schema: public; Owner: pollpar; Tablespace: 
+--
+
+CREATE TABLE auth_group (
+    id integer NOT NULL,
+    name character varying(80) NOT NULL
+);
+
+
+ALTER TABLE public.auth_group OWNER TO pollpar;
+
+--
+-- Name: auth_group_id_seq; Type: SEQUENCE; Schema: public; Owner: pollpar
+--
+
+CREATE SEQUENCE auth_group_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.auth_group_id_seq OWNER TO pollpar;
+
+--
+-- Name: auth_group_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: pollpar
+--
+
+ALTER SEQUENCE auth_group_id_seq OWNED BY auth_group.id;
+
+
+--
+-- Name: auth_group_permissions; Type: TABLE; Schema: public; Owner: pollpar; Tablespace: 
+--
+
+CREATE TABLE auth_group_permissions (
+    id integer NOT NULL,
+    group_id integer NOT NULL,
+    permission_id integer NOT NULL
+);
+
+
+ALTER TABLE public.auth_group_permissions OWNER TO pollpar;
+
+--
+-- Name: auth_group_permissions_id_seq; Type: SEQUENCE; Schema: public; Owner: pollpar
+--
+
+CREATE SEQUENCE auth_group_permissions_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.auth_group_permissions_id_seq OWNER TO pollpar;
+
+--
+-- Name: auth_group_permissions_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: pollpar
+--
+
+ALTER SEQUENCE auth_group_permissions_id_seq OWNED BY auth_group_permissions.id;
+
+
+--
+-- Name: auth_permission; Type: TABLE; Schema: public; Owner: pollpar; Tablespace: 
+--
+
+CREATE TABLE auth_permission (
+    id integer NOT NULL,
+    name character varying(255) NOT NULL,
+    content_type_id integer NOT NULL,
+    codename character varying(100) NOT NULL
+);
+
+
+ALTER TABLE public.auth_permission OWNER TO pollpar;
+
+--
+-- Name: auth_permission_id_seq; Type: SEQUENCE; Schema: public; Owner: pollpar
+--
+
+CREATE SEQUENCE auth_permission_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.auth_permission_id_seq OWNER TO pollpar;
+
+--
+-- Name: auth_permission_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: pollpar
+--
+
+ALTER SEQUENCE auth_permission_id_seq OWNED BY auth_permission.id;
+
+
+--
+-- Name: auth_user; Type: TABLE; Schema: public; Owner: pollpar; Tablespace: 
+--
+
+CREATE TABLE auth_user (
+    id integer NOT NULL,
+    password character varying(128) NOT NULL,
+    last_login timestamp with time zone,
+    is_superuser boolean NOT NULL,
+    username character varying(30) NOT NULL,
+    first_name character varying(30) NOT NULL,
+    last_name character varying(30) NOT NULL,
+    email character varying(254) NOT NULL,
+    is_staff boolean NOT NULL,
+    is_active boolean NOT NULL,
+    date_joined timestamp with time zone NOT NULL
+);
+
+
+ALTER TABLE public.auth_user OWNER TO pollpar;
+
+--
+-- Name: auth_user_groups; Type: TABLE; Schema: public; Owner: pollpar; Tablespace: 
+--
+
+CREATE TABLE auth_user_groups (
+    id integer NOT NULL,
+    user_id integer NOT NULL,
+    group_id integer NOT NULL
+);
+
+
+ALTER TABLE public.auth_user_groups OWNER TO pollpar;
+
+--
+-- Name: auth_user_groups_id_seq; Type: SEQUENCE; Schema: public; Owner: pollpar
+--
+
+CREATE SEQUENCE auth_user_groups_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.auth_user_groups_id_seq OWNER TO pollpar;
+
+--
+-- Name: auth_user_groups_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: pollpar
+--
+
+ALTER SEQUENCE auth_user_groups_id_seq OWNED BY auth_user_groups.id;
+
+
+--
+-- Name: auth_user_id_seq; Type: SEQUENCE; Schema: public; Owner: pollpar
+--
+
+CREATE SEQUENCE auth_user_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.auth_user_id_seq OWNER TO pollpar;
+
+--
+-- Name: auth_user_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: pollpar
+--
+
+ALTER SEQUENCE auth_user_id_seq OWNED BY auth_user.id;
+
+
+--
+-- Name: auth_user_user_permissions; Type: TABLE; Schema: public; Owner: pollpar; Tablespace: 
+--
+
+CREATE TABLE auth_user_user_permissions (
+    id integer NOT NULL,
+    user_id integer NOT NULL,
+    permission_id integer NOT NULL
+);
+
+
+ALTER TABLE public.auth_user_user_permissions OWNER TO pollpar;
+
+--
+-- Name: auth_user_user_permissions_id_seq; Type: SEQUENCE; Schema: public; Owner: pollpar
+--
+
+CREATE SEQUENCE auth_user_user_permissions_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.auth_user_user_permissions_id_seq OWNER TO pollpar;
+
+--
+-- Name: auth_user_user_permissions_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: pollpar
+--
+
+ALTER SEQUENCE auth_user_user_permissions_id_seq OWNED BY auth_user_user_permissions.id;
+
+
+--
+-- Name: authtoken_token; Type: TABLE; Schema: public; Owner: pollpar; Tablespace: 
+--
+
+CREATE TABLE authtoken_token (
+    key character varying(40) NOT NULL,
+    created timestamp with time zone NOT NULL,
+    user_id integer NOT NULL
+);
+
+
+ALTER TABLE public.authtoken_token OWNER TO pollpar;
+
+--
+-- Name: django_admin_log; Type: TABLE; Schema: public; Owner: pollpar; Tablespace: 
+--
+
+CREATE TABLE django_admin_log (
+    id integer NOT NULL,
+    action_time timestamp with time zone NOT NULL,
+    object_id text,
+    object_repr character varying(200) NOT NULL,
+    action_flag smallint NOT NULL,
+    change_message text NOT NULL,
+    content_type_id integer,
+    user_id integer NOT NULL,
+    CONSTRAINT django_admin_log_action_flag_check CHECK ((action_flag >= 0))
+);
+
+
+ALTER TABLE public.django_admin_log OWNER TO pollpar;
+
+--
+-- Name: django_admin_log_id_seq; Type: SEQUENCE; Schema: public; Owner: pollpar
+--
+
+CREATE SEQUENCE django_admin_log_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.django_admin_log_id_seq OWNER TO pollpar;
+
+--
+-- Name: django_admin_log_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: pollpar
+--
+
+ALTER SEQUENCE django_admin_log_id_seq OWNED BY django_admin_log.id;
+
+
+--
+-- Name: django_content_type; Type: TABLE; Schema: public; Owner: pollpar; Tablespace: 
+--
+
+CREATE TABLE django_content_type (
+    id integer NOT NULL,
+    app_label character varying(100) NOT NULL,
+    model character varying(100) NOT NULL
+);
+
+
+ALTER TABLE public.django_content_type OWNER TO pollpar;
+
+--
+-- Name: django_content_type_id_seq; Type: SEQUENCE; Schema: public; Owner: pollpar
+--
+
+CREATE SEQUENCE django_content_type_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.django_content_type_id_seq OWNER TO pollpar;
+
+--
+-- Name: django_content_type_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: pollpar
+--
+
+ALTER SEQUENCE django_content_type_id_seq OWNED BY django_content_type.id;
+
+
+--
+-- Name: django_migrations; Type: TABLE; Schema: public; Owner: pollpar; Tablespace: 
+--
+
+CREATE TABLE django_migrations (
+    id integer NOT NULL,
+    app character varying(255) NOT NULL,
+    name character varying(255) NOT NULL,
+    applied timestamp with time zone NOT NULL
+);
+
+
+ALTER TABLE public.django_migrations OWNER TO pollpar;
+
+--
+-- Name: django_migrations_id_seq; Type: SEQUENCE; Schema: public; Owner: pollpar
+--
+
+CREATE SEQUENCE django_migrations_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.django_migrations_id_seq OWNER TO pollpar;
+
+--
+-- Name: django_migrations_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: pollpar
+--
+
+ALTER SEQUENCE django_migrations_id_seq OWNED BY django_migrations.id;
+
+
+--
+-- Name: django_session; Type: TABLE; Schema: public; Owner: pollpar; Tablespace: 
+--
+
+CREATE TABLE django_session (
+    session_key character varying(40) NOT NULL,
+    session_data text NOT NULL,
+    expire_date timestamp with time zone NOT NULL
+);
+
+
+ALTER TABLE public.django_session OWNER TO pollpar;
+
+--
+-- Name: django_site; Type: TABLE; Schema: public; Owner: pollpar; Tablespace: 
+--
+
+CREATE TABLE django_site (
+    id integer NOT NULL,
+    domain character varying(100) NOT NULL,
+    name character varying(50) NOT NULL
+);
+
+
+ALTER TABLE public.django_site OWNER TO pollpar;
+
+--
+-- Name: django_site_id_seq; Type: SEQUENCE; Schema: public; Owner: pollpar
+--
+
+CREATE SEQUENCE django_site_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.django_site_id_seq OWNER TO pollpar;
+
+--
+-- Name: django_site_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: pollpar
+--
+
+ALTER SEQUENCE django_site_id_seq OWNED BY django_site.id;
+
+
+--
+-- Name: socialaccount_socialaccount; Type: TABLE; Schema: public; Owner: pollpar; Tablespace: 
+--
+
+CREATE TABLE socialaccount_socialaccount (
+    id integer NOT NULL,
+    provider character varying(30) NOT NULL,
+    uid character varying(191) NOT NULL,
+    last_login timestamp with time zone NOT NULL,
+    date_joined timestamp with time zone NOT NULL,
+    extra_data text NOT NULL,
+    user_id integer NOT NULL
+);
+
+
+ALTER TABLE public.socialaccount_socialaccount OWNER TO pollpar;
+
+--
+-- Name: socialaccount_socialaccount_id_seq; Type: SEQUENCE; Schema: public; Owner: pollpar
+--
+
+CREATE SEQUENCE socialaccount_socialaccount_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.socialaccount_socialaccount_id_seq OWNER TO pollpar;
+
+--
+-- Name: socialaccount_socialaccount_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: pollpar
+--
+
+ALTER SEQUENCE socialaccount_socialaccount_id_seq OWNED BY socialaccount_socialaccount.id;
+
+
+--
+-- Name: socialaccount_socialapp; Type: TABLE; Schema: public; Owner: pollpar; Tablespace: 
+--
+
+CREATE TABLE socialaccount_socialapp (
+    id integer NOT NULL,
+    provider character varying(30) NOT NULL,
+    name character varying(40) NOT NULL,
+    client_id character varying(191) NOT NULL,
+    secret character varying(191) NOT NULL,
+    key character varying(191) NOT NULL
+);
+
+
+ALTER TABLE public.socialaccount_socialapp OWNER TO pollpar;
+
+--
+-- Name: socialaccount_socialapp_id_seq; Type: SEQUENCE; Schema: public; Owner: pollpar
+--
+
+CREATE SEQUENCE socialaccount_socialapp_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.socialaccount_socialapp_id_seq OWNER TO pollpar;
+
+--
+-- Name: socialaccount_socialapp_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: pollpar
+--
+
+ALTER SEQUENCE socialaccount_socialapp_id_seq OWNED BY socialaccount_socialapp.id;
+
+
+--
+-- Name: socialaccount_socialapp_sites; Type: TABLE; Schema: public; Owner: pollpar; Tablespace: 
+--
+
+CREATE TABLE socialaccount_socialapp_sites (
+    id integer NOT NULL,
+    socialapp_id integer NOT NULL,
+    site_id integer NOT NULL
+);
+
+
+ALTER TABLE public.socialaccount_socialapp_sites OWNER TO pollpar;
+
+--
+-- Name: socialaccount_socialapp_sites_id_seq; Type: SEQUENCE; Schema: public; Owner: pollpar
+--
+
+CREATE SEQUENCE socialaccount_socialapp_sites_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.socialaccount_socialapp_sites_id_seq OWNER TO pollpar;
+
+--
+-- Name: socialaccount_socialapp_sites_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: pollpar
+--
+
+ALTER SEQUENCE socialaccount_socialapp_sites_id_seq OWNED BY socialaccount_socialapp_sites.id;
+
+
+--
+-- Name: socialaccount_socialtoken; Type: TABLE; Schema: public; Owner: pollpar; Tablespace: 
+--
+
+CREATE TABLE socialaccount_socialtoken (
+    id integer NOT NULL,
+    token text NOT NULL,
+    token_secret text NOT NULL,
+    expires_at timestamp with time zone,
+    account_id integer NOT NULL,
+    app_id integer NOT NULL
+);
+
+
+ALTER TABLE public.socialaccount_socialtoken OWNER TO pollpar;
+
+--
+-- Name: socialaccount_socialtoken_id_seq; Type: SEQUENCE; Schema: public; Owner: pollpar
+--
+
+CREATE SEQUENCE socialaccount_socialtoken_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.socialaccount_socialtoken_id_seq OWNER TO pollpar;
+
+--
+-- Name: socialaccount_socialtoken_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: pollpar
+--
+
+ALTER SEQUENCE socialaccount_socialtoken_id_seq OWNED BY socialaccount_socialtoken.id;
+
+
+--
+-- Name: id; Type: DEFAULT; Schema: public; Owner: pollpar
+--
+
+ALTER TABLE ONLY account_emailaddress ALTER COLUMN id SET DEFAULT nextval('account_emailaddress_id_seq'::regclass);
+
+
+--
+-- Name: id; Type: DEFAULT; Schema: public; Owner: pollpar
+--
+
+ALTER TABLE ONLY account_emailconfirmation ALTER COLUMN id SET DEFAULT nextval('account_emailconfirmation_id_seq'::regclass);
+
+
+--
+-- Name: id; Type: DEFAULT; Schema: public; Owner: pollpar
+--
+
+ALTER TABLE ONLY app_jefesupermercado ALTER COLUMN id SET DEFAULT nextval('app_jefesupermercado_id_seq'::regclass);
+
+
+--
+-- Name: id; Type: DEFAULT; Schema: public; Owner: pollpar
+--
+
+ALTER TABLE ONLY app_marcacione ALTER COLUMN id SET DEFAULT nextval('app_marcacione_id_seq'::regclass);
+
+
+--
+-- Name: id; Type: DEFAULT; Schema: public; Owner: pollpar
+--
+
+ALTER TABLE ONLY app_perfile ALTER COLUMN id SET DEFAULT nextval('app_perfile_id_seq'::regclass);
+
+
+--
+-- Name: id; Type: DEFAULT; Schema: public; Owner: pollpar
+--
+
+ALTER TABLE ONLY auth_group ALTER COLUMN id SET DEFAULT nextval('auth_group_id_seq'::regclass);
+
+
+--
+-- Name: id; Type: DEFAULT; Schema: public; Owner: pollpar
+--
+
+ALTER TABLE ONLY auth_group_permissions ALTER COLUMN id SET DEFAULT nextval('auth_group_permissions_id_seq'::regclass);
+
+
+--
+-- Name: id; Type: DEFAULT; Schema: public; Owner: pollpar
+--
+
+ALTER TABLE ONLY auth_permission ALTER COLUMN id SET DEFAULT nextval('auth_permission_id_seq'::regclass);
+
+
+--
+-- Name: id; Type: DEFAULT; Schema: public; Owner: pollpar
+--
+
+ALTER TABLE ONLY auth_user ALTER COLUMN id SET DEFAULT nextval('auth_user_id_seq'::regclass);
+
+
+--
+-- Name: id; Type: DEFAULT; Schema: public; Owner: pollpar
+--
+
+ALTER TABLE ONLY auth_user_groups ALTER COLUMN id SET DEFAULT nextval('auth_user_groups_id_seq'::regclass);
+
+
+--
+-- Name: id; Type: DEFAULT; Schema: public; Owner: pollpar
+--
+
+ALTER TABLE ONLY auth_user_user_permissions ALTER COLUMN id SET DEFAULT nextval('auth_user_user_permissions_id_seq'::regclass);
+
+
+--
+-- Name: id; Type: DEFAULT; Schema: public; Owner: pollpar
+--
+
+ALTER TABLE ONLY django_admin_log ALTER COLUMN id SET DEFAULT nextval('django_admin_log_id_seq'::regclass);
+
+
+--
+-- Name: id; Type: DEFAULT; Schema: public; Owner: pollpar
+--
+
+ALTER TABLE ONLY django_content_type ALTER COLUMN id SET DEFAULT nextval('django_content_type_id_seq'::regclass);
+
+
+--
+-- Name: id; Type: DEFAULT; Schema: public; Owner: pollpar
+--
+
+ALTER TABLE ONLY django_migrations ALTER COLUMN id SET DEFAULT nextval('django_migrations_id_seq'::regclass);
+
+
+--
+-- Name: id; Type: DEFAULT; Schema: public; Owner: pollpar
+--
+
+ALTER TABLE ONLY django_site ALTER COLUMN id SET DEFAULT nextval('django_site_id_seq'::regclass);
+
+
+--
+-- Name: id; Type: DEFAULT; Schema: public; Owner: pollpar
+--
+
+ALTER TABLE ONLY socialaccount_socialaccount ALTER COLUMN id SET DEFAULT nextval('socialaccount_socialaccount_id_seq'::regclass);
+
+
+--
+-- Name: id; Type: DEFAULT; Schema: public; Owner: pollpar
+--
+
+ALTER TABLE ONLY socialaccount_socialapp ALTER COLUMN id SET DEFAULT nextval('socialaccount_socialapp_id_seq'::regclass);
+
+
+--
+-- Name: id; Type: DEFAULT; Schema: public; Owner: pollpar
+--
+
+ALTER TABLE ONLY socialaccount_socialapp_sites ALTER COLUMN id SET DEFAULT nextval('socialaccount_socialapp_sites_id_seq'::regclass);
+
+
+--
+-- Name: id; Type: DEFAULT; Schema: public; Owner: pollpar
+--
+
+ALTER TABLE ONLY socialaccount_socialtoken ALTER COLUMN id SET DEFAULT nextval('socialaccount_socialtoken_id_seq'::regclass);
+
+
+--
+-- Data for Name: account_emailaddress; Type: TABLE DATA; Schema: public; Owner: pollpar
+--
+
+COPY account_emailaddress (id, email, verified, "primary", user_id) FROM stdin;
+\.
+
+
+--
+-- Name: account_emailaddress_id_seq; Type: SEQUENCE SET; Schema: public; Owner: pollpar
+--
+
+SELECT pg_catalog.setval('account_emailaddress_id_seq', 1, false);
+
+
+--
+-- Data for Name: account_emailconfirmation; Type: TABLE DATA; Schema: public; Owner: pollpar
+--
+
+COPY account_emailconfirmation (id, created, sent, key, email_address_id) FROM stdin;
+\.
+
+
+--
+-- Name: account_emailconfirmation_id_seq; Type: SEQUENCE SET; Schema: public; Owner: pollpar
+--
+
+SELECT pg_catalog.setval('account_emailconfirmation_id_seq', 1, false);
+
+
+--
+-- Data for Name: app_jefesupermercado; Type: TABLE DATA; Schema: public; Owner: pollpar
+--
+
+COPY app_jefesupermercado (id, nombres, apellidos, email, usuario_id) FROM stdin;
+1	A	A		1
+\.
+
+
+--
+-- Name: app_jefesupermercado_id_seq; Type: SEQUENCE SET; Schema: public; Owner: pollpar
+--
+
+SELECT pg_catalog.setval('app_jefesupermercado_id_seq', 1, true);
+
+
+--
+-- Data for Name: app_marcacione; Type: TABLE DATA; Schema: public; Owner: pollpar
+--
+
+COPY app_marcacione (id, lugar, estado, latitud, longitud, fecha, hora, observaciones, device_id, zona, "timestamp", usuario_id) FROM stdin;
+5	Ofina comercial	0	-25.2252247	-57.5340034	16/08/2017	14:55:25		8cb2402d7d0fb482		2017-08-16 14:55:26.153572-04	12
+6	Oficina comercial	0	-25.225069	-57.5342908	16/08/2017	15:00:32		92e21d107142e0d4	4	2017-08-16 15:00:56.810599-04	4
+7	oficina comercial	0			16/08/2017	15:00:55		1909393993302c72	5	2017-08-16 15:01:02.093016-04	8
+8	Oficina comercial	0	-25.225069	-57.5342908	16/08/2017	15:01:08		bebf35b54e1f8493	1	2017-08-16 15:01:16.840675-04	14
+9	Oficina comercial	0	-25.2251025	-57.5343019	16/08/2017	15:01:16		8c55f8380f178cd7	7	2017-08-16 15:01:17.308913-04	6
+10	Oficina comercial	0			16/08/2017	15:01:26		6572235f9dcc62d6		2017-08-16 15:01:27.867516-04	16
+11	Oficina comercial	1	-25.225069	-57.5342908	16/08/2017	15:01:35		387ee484de224877	4	2017-08-16 15:01:40.666081-04	7
+12	Ofina comercial	1	-25.225069	-57.5342908	16/08/2017	15:03:21		8cb2402d7d0fb482	2	2017-08-16 15:03:31.454364-04	12
+13	oficina comercial	1	-25.2250808	-57.5342831	16/08/2017	15:03:22		be445efe0e4b8f10	3	2017-08-16 15:03:31.618322-04	10
+14	Oficina comercial	0	-25.2252214	-57.5340082	16/08/2017	15:10:12		1aeb37366085a4ed	3	2017-08-16 15:10:29.097207-04	15
+15	Oficina	0	-25.2252247	-57.5340034	16/08/2017	15:11:08		3b55ca72969c6e55	3	2017-08-16 15:12:33.898196-04	11
+16	Oficina comercial	1			16/08/2017	15:12:24		6572235f9dcc62d6		2017-08-16 15:12:46.71883-04	16
+17	Oficina comercial	0	-25.219518	-57.5329101	16/08/2017	15:13:49		6572235f9dcc62d6		2017-08-16 15:14:04.51181-04	16
+18	Oficina comercial	1	-25.225069	-57.5342908	16/08/2017	15:15:37		92e21d107142e0d4	4	2017-08-16 15:15:39.045749-04	4
+19	Oficina	0	-25.2167845	-57.532128	16/08/2017	15:18:04		6572235f9dcc62d6	1	2017-08-16 15:18:08.715049-04	16
+20	edificio comercial	0			16/08/2017	15:29:02		1909393993302c72	5	2017-08-16 15:29:22.495149-04	8
+21	Casa	1			16/08/2017	19:18:22	Paternidad	8cb2402d7d0fb482		2017-08-16 19:18:43.128171-04	12
+22	Casa	0			16/08/2017	19:22:43	Paternudad	8cb2402d7d0fb482		2017-08-16 19:23:06.140139-04	12
+23	Casa fresca	1	-25.326126	-57.5708603	17/08/2017	04:58:15		3b55ca72969c6e55	3	2017-08-17 05:00:00.770319-04	11
+24	Superseis la negrita	1			17/08/2017	05:01:30		1909393993302c72	5	2017-08-17 05:01:42.050281-04	8
+25	Real Capiata	1	-25.3495914	-57.4479814	17/08/2017	06:43:12		8c55f8380f178cd7	7	2017-08-17 06:43:37.984729-04	6
+26	Citymarket Nanawa	1	-25.2065845	-57.5344809	17/08/2017	06:52:57		6572235f9dcc62d6		2017-08-17 06:53:20.175376-04	16
+27	City brasil	1	-25.363282	-57.5300501	17/08/2017	08:45:10		bebf35b54e1f8493		2017-08-17 08:45:37.487161-04	14
+28	City montoya	0	-25.3015251	-57.5268937	17/08/2017	10:25:30		bebf35b54e1f8493		2017-08-17 10:25:39.011301-04	14
+29	City montoya	1	-25.3014793	-57.5267728	17/08/2017	11:01:38		bebf35b54e1f8493		2017-08-17 11:02:06.434569-04	14
+30	City boqueron	0	-25.3059484	-57.5188574	17/08/2017	11:17:27		bebf35b54e1f8493		2017-08-17 11:17:55.275559-04	14
+31	City boqueron	1	-25.3059985	-57.5191448	17/08/2017	11:41:47		bebf35b54e1f8493		2017-08-17 11:41:55.750808-04	14
+32	Superseis la negrita	0			17/08/2017	11:44:58		1909393993302c72	5	2017-08-17 11:45:16.540374-04	8
+33	Casa fresca	0	-25.3275732	-57.5694668	17/08/2017	13:08:34		3b55ca72969c6e55	3	2017-08-17 13:09:59.059937-04	11
+34	Casa	0	-25.3343858	-57.4856151	17/08/2017	15:11:20	Paternidad	8cb2402d7d0fb482	2	2017-08-17 15:12:31.824101-04	12
+35	Casa	1	-25.3343858	-57.4856151	17/08/2017	15:14:14	Paternidad	8cb2402d7d0fb482	2	2017-08-17 15:15:20.149001-04	12
+36	Real capiata	0	-25.3495906	-57.4479769	17/08/2017	17:08:26		8c55f8380f178cd7	7	2017-08-17 17:08:31.776103-04	6
+37	Superseis la negrita	1			17/08/2017	17:29:28		1909393993302c72	5	2017-08-17 17:29:37.017424-04	8
+38	Citymarket zeballos	0	-25.2310406	-57.5587461	17/08/2017	17:29:51		6572235f9dcc62d6		2017-08-17 17:29:52.784928-04	16
+39	Superseis la negrita	0			17/08/2017	21:39:03		1909393993302c72	5	2017-08-17 21:39:06.344448-04	8
+40	Casa	0	-25.3343858	-57.4856151	18/08/2017	03:48:44	Paternidad	8cb2402d7d0fb482	2	2017-08-18 03:49:33.01787-04	12
+41	Superseis la negrita	1			18/08/2017	04:59:54		1909393993302c72	5	2017-08-18 05:00:00.255607-04	8
+42	Real San Vicente	0	-25.3091847	-57.6182416	18/08/2017	05:37:52		387ee484de224877	4	2017-08-18 05:38:03.183959-04	7
+43	archi lambare	0			18/08/2017	05:58:35		92e21d107142e0d4	4	2017-08-18 05:58:50.019812-04	4
+44	Citymarket Caballero	1	-25.2210043	-57.5167429	18/08/2017	06:51:48		6572235f9dcc62d6		2017-08-18 06:52:07.469023-04	16
+45	City teniente molas	0	-25.3611424	-57.50462	18/08/2017	08:22:50		bebf35b54e1f8493		2017-08-18 08:23:08.231787-04	14
+46	City jordan	1	-25.3718464	-57.4979434	18/08/2017	08:47:16		bebf35b54e1f8493		2017-08-18 08:47:47.440584-04	14
+47	City jordan	0	-25.3718464	-57.4979434	18/08/2017	09:21:15		bebf35b54e1f8493		2017-08-18 09:21:42.01011-04	14
+48	City victoria	1	-25.3570692	-57.4901855	18/08/2017	09:55:48		bebf35b54e1f8493		2017-08-18 09:56:09.129268-04	14
+49	City victoria	0	-25.3565757	-57.4912686	18/08/2017	10:26:28		bebf35b54e1f8493		2017-08-18 10:26:42.988852-04	14
+50	Stock itagua	0			18/08/2017	10:39:10		1aeb37366085a4ed		2017-08-18 10:39:15.3863-04	15
+51	Casa fresca	1			18/08/2017	11:14:37		3b55ca72969c6e55	3	2017-08-18 11:16:10.60545-04	11
+52	Archi lambare	1			18/08/2017	14:24:36		92e21d107142e0d4	4	2017-08-18 14:24:39.905255-04	4
+53	Real San Vicente	1	-25.3083151	-57.61864	18/08/2017	14:53:57		387ee484de224877	4	2017-08-18 14:53:58.472926-04	7
+54	Real capiata	1	-25.3495906	-57.4479769	18/08/2017	16:51:13		8c55f8380f178cd7	7	2017-08-18 16:51:40.591655-04	6
+55	Citymarket zeballos	0			18/08/2017	17:49:03		6572235f9dcc62d6		2017-08-18 17:49:04.707118-04	16
+56	Casa fresca	0			18/08/2017	19:33:47		3b55ca72969c6e55	3	2017-08-18 19:35:37.828196-04	11
+57	Real capiata	0	-25.350089	-57.4479854	18/08/2017	21:21:02		8c55f8380f178cd7	7	2017-08-18 21:21:02.006046-04	6
+58	real san vicente	0			19/08/2017	05:13:37		1909393993302c72	4	2017-08-19 05:14:05.088564-04	8
+59	Real capiata	1	-25.3495734	-57.4480322	19/08/2017	05:25:19		8c55f8380f178cd7	7	2017-08-19 05:25:26.688579-04	6
+60	Real san vicente	0	-25.3084092	-57.6181421	19/08/2017	05:49:03		387ee484de224877	4	2017-08-19 05:49:29.826802-04	7
+61	Archi lambare	0			19/08/2017	06:01:09		92e21d107142e0d4	4	2017-08-19 06:01:13.23427-04	4
+62	Citymarket Zeballos	1	-25.2310447	-57.5587476	19/08/2017	07:04:09		6572235f9dcc62d6		2017-08-19 07:04:15.740166-04	16
+63	Real capiata	0	-25.3496317	-57.4479769	19/08/2017	10:04:30		8c55f8380f178cd7	7	2017-08-19 10:04:55.887824-04	6
+64	Archi lambare	1			19/08/2017	11:06:31		92e21d107142e0d4	4	2017-08-19 11:06:56.137404-04	4
+65	real san vicente	1			19/08/2017	14:13:43		1909393993302c72	4	2017-08-19 14:14:11.36662-04	8
+66	Citymarket zeballos	0	-25.2310447	-57.5587476	19/08/2017	15:33:30		6572235f9dcc62d6		2017-08-19 15:33:54.956551-04	16
+67	Real capiata	1	-25.3495235	-57.4479548	19/08/2017	15:41:46		8c55f8380f178cd7	7	2017-08-19 15:41:57.109586-04	6
+68	Real San  Vicente	1	-25.3087765	-57.618047	19/08/2017	15:53:30		387ee484de224877	4	2017-08-19 15:54:00.579943-04	7
+69	Archi lambare	0			19/08/2017	17:13:16		92e21d107142e0d4	4	2017-08-19 17:13:32.469432-04	4
+70	Casa	0	-25.3343858	-57.4856151	19/08/2017	21:00:47	Paternidad	8cb2402d7d0fb482	2	2017-08-19 21:01:37.11019-04	12
+71	Real capiata	0	-25.3495961	-57.447999	19/08/2017	21:47:29		8c55f8380f178cd7	7	2017-08-19 21:47:55.080742-04	6
+72	Archi lambare	1			20/08/2017	04:57:21		92e21d107142e0d4	4	2017-08-20 04:57:47.627377-04	4
+73	real san vicente	0			20/08/2017	05:27:09		1909393993302c72	4	2017-08-20 05:27:11.114222-04	8
+74	Real capiata	1	-25.3495906	-57.4479769	20/08/2017	05:27:06		8c55f8380f178cd7	7	2017-08-20 05:27:20.910043-04	6
+75	Real San viecnte	0	-25.3084295	-57.6175114	20/08/2017	05:46:07		387ee484de224877	4	2017-08-20 05:46:31.674464-04	7
+76	Casa fresca	1			20/08/2017	05:58:05		3b55ca72969c6e55	3	2017-08-20 05:59:51.371419-04	11
+77	Real capiata	0	-25.3494662	-57.4484299	20/08/2017	12:27:44		8c55f8380f178cd7	7	2017-08-20 12:28:11.612316-04	6
+78	Real San vicente	1	-25.3089073	-57.6178654	20/08/2017	13:04:08		387ee484de224877	4	2017-08-20 13:04:18.829451-04	7
+79	real san vicente	1	-25.3082787	-57.6169802	20/08/2017	13:07:50		1909393993302c72	4	2017-08-20 13:08:19.79642-04	8
+80	Casa fresca	0			21/08/2017	04:50:38		3b55ca72969c6e55	3	2017-08-21 04:52:28.144-04	11
+81	Real San  Vicente	0	-25.308396	-57.6177105	21/08/2017	05:31:52		387ee484de224877	4	2017-08-21 05:32:15.917016-04	7
+82	Stock itagua	1	-25.3925067	-57.3541631	21/08/2017	05:33:44		1aeb37366085a4ed		2017-08-21 05:33:58.571412-04	15
+83	Real capiata	1	-25.3495303	-57.4480653	21/08/2017	06:49:56		8c55f8380f178cd7	7	2017-08-21 06:49:58.103334-04	6
+84	Citymarket zeballos	1			21/08/2017	07:17:54		6572235f9dcc62d6		2017-08-21 07:18:21.870341-04	16
+85	Stock itagua	0	-25.3916382	-57.3542624	21/08/2017	10:40:49		1aeb37366085a4ed		2017-08-21 10:40:57.209515-04	15
+86	Real San Vicente	1	-25.308745	-57.6181762	21/08/2017	11:02:13		387ee484de224877	4	2017-08-21 11:02:37.76562-04	7
+87	Casa fresca	1			21/08/2017	13:09:19		3b55ca72969c6e55	3	2017-08-21 13:10:56.736681-04	11
+88	Real san Vicente	0			21/08/2017	16:39:06		387ee484de224877	4	2017-08-21 16:39:32.973984-04	7
+89	Real capiata	0	-25.3495906	-57.4479769	21/08/2017	17:07:04		8c55f8380f178cd7	7	2017-08-21 17:07:05.940967-04	6
+90	Casa	1	-25.3343858	-57.4856151	21/08/2017	17:56:43	Paternidad	8cb2402d7d0fb482	2	2017-08-21 17:57:31.758-04	12
+91	Citymarket zeballos	0			21/08/2017	17:58:40		6572235f9dcc62d6		2017-08-21 17:58:49.127166-04	16
+92	Stock itagua	1	-25.3925526	-57.3543066	21/08/2017	21:19:11		1aeb37366085a4ed		2017-08-21 21:19:27.904553-04	15
+93	Real San Vicente	1	-25.3076745	-57.6174228	21/08/2017	21:22:12		387ee484de224877	4	2017-08-21 21:22:34.671422-04	7
+94	real san vicente	0	-25.3083655	-57.6173343	22/08/2017	05:22:05		1909393993302c72	4	2017-08-22 05:22:09.572285-04	8
+95	Real capiata	1	-25.3495063	-57.4480101	22/08/2017	05:26:18		8c55f8380f178cd7	7	2017-08-22 05:26:44.547808-04	6
+96	Casa rica lambare	0			22/08/2017	06:10:29		92e21d107142e0d4	4	2017-08-22 06:10:51.979251-04	4
+97	Citymarket zeballos	1			22/08/2017	06:48:15		6572235f9dcc62d6		2017-08-22 06:48:31.661375-04	16
+98	Real capiata	0	-25.3495755	-57.447999	22/08/2017	11:34:18		8c55f8380f178cd7	7	2017-08-22 11:34:41.886641-04	6
+99	real san vicente	1	-25.3083828	-57.6170687	22/08/2017	11:40:27		1909393993302c72	5	2017-08-22 11:40:33.251213-04	8
+100	Casa	0	-25.3343858	-57.4856151	22/08/2017	11:51:17	Paternidad	8cb2402d7d0fb482	2	2017-08-22 11:52:03.491434-04	12
+101	Casa	1	-25.3343858	-57.4856151	22/08/2017	16:15:52	Paternidad	8cb2402d7d0fb482	2	2017-08-22 16:16:38.329388-04	12
+102	Citymarket zeballos	0	-25.2352332	-57.5569918	22/08/2017	16:54:57		6572235f9dcc62d6		2017-08-22 16:55:14.071479-04	16
+103	Real capiata	1	-25.3503988	-57.4480874	22/08/2017	16:57:04		8c55f8380f178cd7	7	2017-08-22 16:57:31.116208-04	6
+104	real san vicente	0			22/08/2017	17:02:06		1909393993302c72	4	2017-08-22 17:02:28.14133-04	8
+105	Casa rica lambare	1	-25.3415443	-57.6068009	22/08/2017	17:39:19		92e21d107142e0d4	4	2017-08-22 17:39:28.801217-04	4
+106	real san vicente	1			22/08/2017	21:04:58		1909393993302c72	4	2017-08-22 21:05:21.951097-04	8
+107	Real capiata	0	-25.3495906	-57.4479769	22/08/2017	21:12:35		8c55f8380f178cd7	7	2017-08-22 21:12:58.984803-04	6
+\.
+
+
+--
+-- Name: app_marcacione_id_seq; Type: SEQUENCE SET; Schema: public; Owner: pollpar
+--
+
+SELECT pg_catalog.setval('app_marcacione_id_seq', 107, true);
+
+
+--
+-- Data for Name: app_perfile; Type: TABLE DATA; Schema: public; Owner: pollpar
+--
+
+COPY app_perfile (id, telefono_id, sexo, legajo, jefe_id, usuario_id) FROM stdin;
+1	\N	\N	2316	1	4
+2	\N	\N	1685	1	5
+3	\N	\N	2812	1	6
+4	\N	\N	2766	1	7
+5	\N	\N	1697	1	8
+6	\N	\N	1740	1	9
+7	\N	\N	1691	1	10
+8	\N	\N	1730	1	11
+9	\N	\N	1492	1	12
+10	\N	\N	1892	1	13
+11	\N	\N	1735	1	14
+12	\N	\N	1573	1	15
+13	\N	\N	1927	1	16
+\.
+
+
+--
+-- Name: app_perfile_id_seq; Type: SEQUENCE SET; Schema: public; Owner: pollpar
+--
+
+SELECT pg_catalog.setval('app_perfile_id_seq', 13, true);
+
+
+--
+-- Data for Name: auth_group; Type: TABLE DATA; Schema: public; Owner: pollpar
+--
+
+COPY auth_group (id, name) FROM stdin;
+\.
+
+
+--
+-- Name: auth_group_id_seq; Type: SEQUENCE SET; Schema: public; Owner: pollpar
+--
+
+SELECT pg_catalog.setval('auth_group_id_seq', 1, false);
+
+
+--
+-- Data for Name: auth_group_permissions; Type: TABLE DATA; Schema: public; Owner: pollpar
+--
+
+COPY auth_group_permissions (id, group_id, permission_id) FROM stdin;
+\.
+
+
+--
+-- Name: auth_group_permissions_id_seq; Type: SEQUENCE SET; Schema: public; Owner: pollpar
+--
+
+SELECT pg_catalog.setval('auth_group_permissions_id_seq', 1, false);
+
+
+--
+-- Data for Name: auth_permission; Type: TABLE DATA; Schema: public; Owner: pollpar
+--
+
+COPY auth_permission (id, name, content_type_id, codename) FROM stdin;
+1	Can add log entry	1	add_logentry
+2	Can change log entry	1	change_logentry
+3	Can delete log entry	1	delete_logentry
+4	Can add permission	2	add_permission
+5	Can change permission	2	change_permission
+6	Can delete permission	2	delete_permission
+7	Can add group	3	add_group
+8	Can change group	3	change_group
+9	Can delete group	3	delete_group
+10	Can add user	4	add_user
+11	Can change user	4	change_user
+12	Can delete user	4	delete_user
+13	Can add content type	5	add_contenttype
+14	Can change content type	5	change_contenttype
+15	Can delete content type	5	delete_contenttype
+16	Can add session	6	add_session
+17	Can change session	6	change_session
+18	Can delete session	6	delete_session
+19	Can add marcacione	7	add_marcacione
+20	Can change marcacione	7	change_marcacione
+21	Can delete marcacione	7	delete_marcacione
+22	Can add jefe supermercado	8	add_jefesupermercado
+23	Can change jefe supermercado	8	change_jefesupermercado
+24	Can delete jefe supermercado	8	delete_jefesupermercado
+25	Can add perfile	9	add_perfile
+26	Can change perfile	9	change_perfile
+27	Can delete perfile	9	delete_perfile
+28	Can add token	10	add_token
+29	Can change token	10	change_token
+30	Can delete token	10	delete_token
+31	Can add site	11	add_site
+32	Can change site	11	change_site
+33	Can delete site	11	delete_site
+34	Can add email address	12	add_emailaddress
+35	Can change email address	12	change_emailaddress
+36	Can delete email address	12	delete_emailaddress
+37	Can add email confirmation	13	add_emailconfirmation
+38	Can change email confirmation	13	change_emailconfirmation
+39	Can delete email confirmation	13	delete_emailconfirmation
+40	Can add social application	14	add_socialapp
+41	Can change social application	14	change_socialapp
+42	Can delete social application	14	delete_socialapp
+43	Can add social account	15	add_socialaccount
+44	Can change social account	15	change_socialaccount
+45	Can delete social account	15	delete_socialaccount
+46	Can add social application token	16	add_socialtoken
+47	Can change social application token	16	change_socialtoken
+48	Can delete social application token	16	delete_socialtoken
+\.
+
+
+--
+-- Name: auth_permission_id_seq; Type: SEQUENCE SET; Schema: public; Owner: pollpar
+--
+
+SELECT pg_catalog.setval('auth_permission_id_seq', 48, true);
+
+
+--
+-- Data for Name: auth_user; Type: TABLE DATA; Schema: public; Owner: pollpar
+--
+
+COPY auth_user (id, password, last_login, is_superuser, username, first_name, last_name, email, is_staff, is_active, date_joined) FROM stdin;
+11	pbkdf2_sha256$24000$V2ayUxhC0YLw$VUrX650GPRwscrsw3xDsNhqHsGgvXa3BDUsUr646hRE=	2017-08-16 14:45:59.80976-04	f	1730	Christian	Ferreira	controller@tecnodesign.com.py	f	t	2017-08-16 14:34:29.778216-04
+7	pbkdf2_sha256$24000$yqpU1D4Itnwz$k0H2sUkv+7bvsHgHIF93ONdoqpX2QMD7aE4oF8VzsfI=	2017-08-16 14:49:54.549357-04	f	2766	Lidia	Benitez Insaurralde	controller@tecnodesign.com.py	f	t	2017-08-16 14:26:56.446336-04
+6	pbkdf2_sha256$24000$jPxypKS1DgyS$gAxXmDxtLietKq0Gud2SeoRHRifoESSTaVM6rME0qAg=	2017-08-16 14:50:55.283015-04	f	2812	Corazón de María	Dominguez	controller@tecnodesign.com.py	f	t	2017-08-16 14:25:30.757235-04
+10	pbkdf2_sha256$24000$PGE8StaC4mpT$v5mT3ZFtcLtgw21EjDWZ+EdYco60VRHSAG957S+M0j4=	2017-08-16 14:55:42.904219-04	f	1691	Atilio	Fernandez	controller@tecnodesign.com.py	f	t	2017-08-16 14:32:22.524016-04
+5	pbkdf2_sha256$24000$UD339WazEMii$NGOJ84aDE8/ufA8JWWlBtxUhC+T07c4OrfbUw34EfkY=	2017-08-16 14:25:49.065573-04	f	1685	Nilce Noelia	Benitez Vera	controller@tecnodesign.com.py	f	t	2017-08-16 14:24:36.236146-04
+9	pbkdf2_sha256$24000$JfOoqKOGoOau$xVK5r0r18lvfac6jDHwmkbbXhlG0kBPj6xwJ3ZDlyP8=	\N	f	1740	Maxima	Quiñonez	controller@tecnodesign.com.py	f	t	2017-08-16 14:28:43.969216-04
+13	pbkdf2_sha256$24000$Lpy30pKg6Eg4$qjZk5hRQ0X0lb4qvU+uABs8yg2gSERQEuyMARx4wJYk=	\N	f	1892	Rommy	Salanueva	controller@tecnodesign.com.py	f	t	2017-08-16 14:37:12.9145-04
+12	pbkdf2_sha256$24000$9wXLsZ55z2zz$CTNBblTjkR5TEwT4xfatY05pcwlBZCslJFZr5/Y11v8=	2017-08-17 15:11:35.129116-04	f	1492	Gabriel	Ruíz Díaz	controller@tecnodesign.com.py	f	t	2017-08-16 14:35:48.748632-04
+14	pbkdf2_sha256$24000$fYaBtJ9QYyq8$H3PjzFC0h1IgLlh90Gvaio+7FSjeZBBeSDypiQCTzmU=	2017-08-16 14:45:58.146945-04	f	1735	Gustavo	González	controller@tecnodesign.com.py	f	t	2017-08-16 14:37:59.423874-04
+15	pbkdf2_sha256$24000$DGqS4BGE9UdY$9KQRIqEGLXX6rB+1Vw36kxddU7lzHBbeWWz9tP78pGM=	2017-08-16 14:45:59.033628-04	f	1573	Lidia	Galeano	controller@tecnodesign.com.py	f	t	2017-08-16 14:39:12.185361-04
+4	pbkdf2_sha256$24000$pPPJtLGi8BYK$j2Iqq1V9k8UTbIYakMlHvZazpzRY97FiVcTofbK0zq4=	2017-08-21 18:25:53.162646-04	f	2316	Lucio Antonio	Bogado Baez	controller@tecnodesign.com.py	f	t	2017-08-16 14:23:38.792129-04
+8	pbkdf2_sha256$24000$OfG0DuARW9br$OTCrGP8zo2/U+gH4cJM3Fw7JR/w1aydO93mHLsPuhDM=	2017-08-22 11:39:40.24962-04	f	1697	Aldo	Mendez	controller@tecnodesign.com.py	f	t	2017-08-16 14:27:58.152794-04
+16	pbkdf2_sha256$24000$YJIPa9jSPKqa$17IJWCwz74BjH7/kgShIBRceeC9YEOZR9G5gSWUOIEM=	2017-08-22 16:54:56.981826-04	f	1927	Gabriel	Spaini	controller@tecnodesign.com.py	f	t	2017-08-16 14:40:24.319543-04
+1	pbkdf2_sha256$24000$G4CHHDbOAtiO$azcPDl/ILFdQvIFCCARbVJYUnTbaSfuZNL5KDAVkteo=	2017-08-22 22:10:01.588323-04	t	admin			admin@admin.com	t	t	2017-08-16 12:59:16.652029-04
+\.
+
+
+--
+-- Data for Name: auth_user_groups; Type: TABLE DATA; Schema: public; Owner: pollpar
+--
+
+COPY auth_user_groups (id, user_id, group_id) FROM stdin;
+\.
+
+
+--
+-- Name: auth_user_groups_id_seq; Type: SEQUENCE SET; Schema: public; Owner: pollpar
+--
+
+SELECT pg_catalog.setval('auth_user_groups_id_seq', 1, false);
+
+
+--
+-- Name: auth_user_id_seq; Type: SEQUENCE SET; Schema: public; Owner: pollpar
+--
+
+SELECT pg_catalog.setval('auth_user_id_seq', 16, true);
+
+
+--
+-- Data for Name: auth_user_user_permissions; Type: TABLE DATA; Schema: public; Owner: pollpar
+--
+
+COPY auth_user_user_permissions (id, user_id, permission_id) FROM stdin;
+\.
+
+
+--
+-- Name: auth_user_user_permissions_id_seq; Type: SEQUENCE SET; Schema: public; Owner: pollpar
+--
+
+SELECT pg_catalog.setval('auth_user_user_permissions_id_seq', 1, false);
+
+
+--
+-- Data for Name: authtoken_token; Type: TABLE DATA; Schema: public; Owner: pollpar
+--
+
+COPY authtoken_token (key, created, user_id) FROM stdin;
+00dee5b3ac7c2c8f13921e54b1ca3829e7f6f84a	2017-08-16 13:00:19.307702-04	1
+74e849ddc888d8d03147c7895be74698ac88fa22	2017-08-16 14:25:49.05852-04	5
+63e4244e318d1040691ec1dc2e856b0179eda5d3	2017-08-16 14:45:57.661187-04	16
+81c4bcfcdbfc58d348345ce9b236c77ef43b737f	2017-08-16 14:45:58.137641-04	14
+20139eaba005e9eaac51141968b928c7c89a5b16	2017-08-16 14:45:58.389898-04	4
+c37fc3ed9f5a259e80b687ac280d73762bde5414	2017-08-16 14:45:59.012576-04	15
+1de2b936635b4f6f42b6f5a96d9910c5d9ac0758	2017-08-16 14:45:59.800816-04	11
+d19ebbfca38b32765f574c784601fc9c32a635b0	2017-08-16 14:46:36.077626-04	8
+69ab1df522d4786930715ac88a78a48310bdb6e7	2017-08-16 14:47:11.578057-04	12
+9486d953cc9d436a13895b036f7d6b7dd5328f3c	2017-08-16 14:49:54.537287-04	7
+8d9c9b79d034a2632f8c84a6b8f004cad45e1557	2017-08-16 14:50:55.27237-04	6
+9cf4fbc26d3cf3e64a7d4813ea2b9c64ef935c99	2017-08-16 14:55:42.895454-04	10
+\.
+
+
+--
+-- Data for Name: django_admin_log; Type: TABLE DATA; Schema: public; Owner: pollpar
+--
+
+COPY django_admin_log (id, action_time, object_id, object_repr, action_flag, change_message, content_type_id, user_id) FROM stdin;
+1	2017-08-16 13:19:09.03712-04	4	admin	3		7	1
+2	2017-08-16 13:19:09.04213-04	3	admin	3		7	1
+3	2017-08-16 13:19:09.043962-04	2	admin	3		7	1
+4	2017-08-16 13:19:09.045646-04	1	admin	3		7	1
+5	2017-08-16 14:22:53.679179-04	1	admin	1	Añadido.	8	1
+6	2017-08-16 14:24:00.779832-04	2	1685	3		4	1
+\.
+
+
+--
+-- Name: django_admin_log_id_seq; Type: SEQUENCE SET; Schema: public; Owner: pollpar
+--
+
+SELECT pg_catalog.setval('django_admin_log_id_seq', 6, true);
+
+
+--
+-- Data for Name: django_content_type; Type: TABLE DATA; Schema: public; Owner: pollpar
+--
+
+COPY django_content_type (id, app_label, model) FROM stdin;
+1	admin	logentry
+2	auth	permission
+3	auth	group
+4	auth	user
+5	contenttypes	contenttype
+6	sessions	session
+7	app	marcacione
+8	app	jefesupermercado
+9	app	perfile
+10	authtoken	token
+11	sites	site
+12	account	emailaddress
+13	account	emailconfirmation
+14	socialaccount	socialapp
+15	socialaccount	socialaccount
+16	socialaccount	socialtoken
+\.
+
+
+--
+-- Name: django_content_type_id_seq; Type: SEQUENCE SET; Schema: public; Owner: pollpar
+--
+
+SELECT pg_catalog.setval('django_content_type_id_seq', 16, true);
+
+
+--
+-- Data for Name: django_migrations; Type: TABLE DATA; Schema: public; Owner: pollpar
+--
+
+COPY django_migrations (id, app, name, applied) FROM stdin;
+1	contenttypes	0001_initial	2017-08-16 12:58:53.874666-04
+2	auth	0001_initial	2017-08-16 12:58:53.981928-04
+3	account	0001_initial	2017-08-16 12:58:54.03965-04
+4	account	0002_email_max_length	2017-08-16 12:58:54.063068-04
+5	admin	0001_initial	2017-08-16 12:58:54.092517-04
+6	admin	0002_logentry_remove_auto_add	2017-08-16 12:58:54.110795-04
+7	app	0001_initial	2017-08-16 12:58:54.225382-04
+8	contenttypes	0002_remove_content_type_name	2017-08-16 12:58:54.339366-04
+9	auth	0002_alter_permission_name_max_length	2017-08-16 12:58:54.365626-04
+10	auth	0003_alter_user_email_max_length	2017-08-16 12:58:54.389181-04
+11	auth	0004_alter_user_username_opts	2017-08-16 12:58:54.413586-04
+12	auth	0005_alter_user_last_login_null	2017-08-16 12:58:54.43559-04
+13	auth	0006_require_contenttypes_0002	2017-08-16 12:58:54.437813-04
+14	auth	0007_alter_validators_add_error_messages	2017-08-16 12:58:54.458485-04
+15	authtoken	0001_initial	2017-08-16 12:58:54.489938-04
+16	sessions	0001_initial	2017-08-16 12:58:54.507878-04
+17	sites	0001_initial	2017-08-16 12:58:54.521904-04
+18	sites	0002_alter_domain_unique	2017-08-16 12:58:54.534326-04
+19	socialaccount	0001_initial	2017-08-16 12:58:54.69176-04
+20	socialaccount	0002_token_max_lengths	2017-08-16 12:58:54.824225-04
+21	socialaccount	0003_extra_data_default_dict	2017-08-16 12:58:54.859362-04
+22	app	0002_auto_20170802_1208	2017-08-22 22:06:07.112099-04
+23	app	0003_auto_20170803_1644	2017-08-22 22:06:25.127724-04
+24	app	0004_perfile_legajo	2017-08-22 22:06:25.132249-04
+25	app	0005_auto_20170808_1541	2017-08-22 22:06:25.135087-04
+26	app	0006_auto_20170808_1627	2017-08-22 22:06:25.137601-04
+27	app	0007_marcacione_zona	2017-08-22 22:06:25.139786-04
+28	app	0008_perfile_activo	2017-08-22 22:06:25.141893-04
+29	app	0002_auto_20170822_2213	2017-08-22 22:13:43.364493-04
+\.
+
+
+--
+-- Name: django_migrations_id_seq; Type: SEQUENCE SET; Schema: public; Owner: pollpar
+--
+
+SELECT pg_catalog.setval('django_migrations_id_seq', 29, true);
+
+
+--
+-- Data for Name: django_session; Type: TABLE DATA; Schema: public; Owner: pollpar
+--
+
+COPY django_session (session_key, session_data, expire_date) FROM stdin;
+f33ojo5pzukvwo9zzexcxnck5xqze8vp	MDk5ZTg4Zjg0M2YwMmQzMWI2MDk0YWI1OTE3ZmUyODhkN2FiYWQyZjp7Il9hdXRoX3VzZXJfaWQiOiIxIiwiX2F1dGhfdXNlcl9oYXNoIjoiZTVkYTNkOTAxNzBhZWI1MjM2NjJmM2Q4YTNlY2NiODNiYTlmYWVlYSIsIl9hdXRoX3VzZXJfYmFja2VuZCI6ImRqYW5nby5jb250cmliLmF1dGguYmFja2VuZHMuTW9kZWxCYWNrZW5kIn0=	2017-08-30 12:59:59.654798-04
+zcrneth36dmuhpg6xuyna0ym52sbdq92	MDk5ZTg4Zjg0M2YwMmQzMWI2MDk0YWI1OTE3ZmUyODhkN2FiYWQyZjp7Il9hdXRoX3VzZXJfaWQiOiIxIiwiX2F1dGhfdXNlcl9oYXNoIjoiZTVkYTNkOTAxNzBhZWI1MjM2NjJmM2Q4YTNlY2NiODNiYTlmYWVlYSIsIl9hdXRoX3VzZXJfYmFja2VuZCI6ImRqYW5nby5jb250cmliLmF1dGguYmFja2VuZHMuTW9kZWxCYWNrZW5kIn0=	2017-08-30 13:00:19.325206-04
+4cc2bvq4ynhsef6nid04rrsvc7wptxpv	Y2U5MTUwZDhhMzE3N2MyMzIyZGVmNzQ1OTEzYTg0MzBhNGQxZjBiMjp7Il9hdXRoX3VzZXJfaGFzaCI6ImU1ZGEzZDkwMTcwYWViNTIzNjYyZjNkOGEzZWNjYjgzYmE5ZmFlZWEiLCJfYXV0aF91c2VyX2JhY2tlbmQiOiJkamFuZ28uY29udHJpYi5hdXRoLmJhY2tlbmRzLk1vZGVsQmFja2VuZCIsIl9hdXRoX3VzZXJfaWQiOiIxIn0=	2017-08-30 13:09:11.567594-04
+vismwulleaolyyavikol1jpm9c1prdar	Y2U5MTUwZDhhMzE3N2MyMzIyZGVmNzQ1OTEzYTg0MzBhNGQxZjBiMjp7Il9hdXRoX3VzZXJfaGFzaCI6ImU1ZGEzZDkwMTcwYWViNTIzNjYyZjNkOGEzZWNjYjgzYmE5ZmFlZWEiLCJfYXV0aF91c2VyX2JhY2tlbmQiOiJkamFuZ28uY29udHJpYi5hdXRoLmJhY2tlbmRzLk1vZGVsQmFja2VuZCIsIl9hdXRoX3VzZXJfaWQiOiIxIn0=	2017-08-30 13:17:45.237051-04
+b69dkvrrm0h5s541vlruja2in6zuo5w6	Y2U5MTUwZDhhMzE3N2MyMzIyZGVmNzQ1OTEzYTg0MzBhNGQxZjBiMjp7Il9hdXRoX3VzZXJfaGFzaCI6ImU1ZGEzZDkwMTcwYWViNTIzNjYyZjNkOGEzZWNjYjgzYmE5ZmFlZWEiLCJfYXV0aF91c2VyX2JhY2tlbmQiOiJkamFuZ28uY29udHJpYi5hdXRoLmJhY2tlbmRzLk1vZGVsQmFja2VuZCIsIl9hdXRoX3VzZXJfaWQiOiIxIn0=	2017-08-30 13:18:12.917148-04
+zrtvg01mc1deat6vmzoz7krfldx03uta	YmZiZmQxMWU3NTZlZDMyYjU3N2IzMmFhZDE1NzMwOTU1OWRiNDgzMzp7Il9hdXRoX3VzZXJfaGFzaCI6IjU0ZDAzYjZjMDlmODU3ZGY1Yjc3NTM1NWRmOGMyMDBjZjlkOGMwMWQiLCJfYXV0aF91c2VyX2JhY2tlbmQiOiJkamFuZ28uY29udHJpYi5hdXRoLmJhY2tlbmRzLk1vZGVsQmFja2VuZCIsIl9hdXRoX3VzZXJfaWQiOiIxNCJ9	2017-08-30 14:45:58.150494-04
+sagmfro33dwkh75vt2ojlnja62eud8yw	NDI5ZDIzNWNkYzY1ZjJlODVkNWZjYzNlNjA2OTgwYzllZjk2MjJiMTp7Il9hdXRoX3VzZXJfaGFzaCI6IjRiZGZkYjVjMjlmODgzZGFjZDM2ZjEwNGQ3MWU1MDA4OGNiNjNiY2YiLCJfYXV0aF91c2VyX2JhY2tlbmQiOiJkamFuZ28uY29udHJpYi5hdXRoLmJhY2tlbmRzLk1vZGVsQmFja2VuZCIsIl9hdXRoX3VzZXJfaWQiOiIxNSJ9	2017-08-30 14:45:59.036706-04
+uk0dwn04zmfw7n1o380p70mtk06i0ydz	OWY1ZWVhYTg0NmNlYTkzMTlkY2IyMjI2ZTQ3NTY3MWQ3OTI1ZjYxYjp7Il9hdXRoX3VzZXJfaGFzaCI6ImRjOGI5ZjdlMjg5MjRlZjQxY2ZmMWQwMDBhNmI2ZThhNTE1MzA5YTMiLCJfYXV0aF91c2VyX2JhY2tlbmQiOiJkamFuZ28uY29udHJpYi5hdXRoLmJhY2tlbmRzLk1vZGVsQmFja2VuZCIsIl9hdXRoX3VzZXJfaWQiOiIxMSJ9	2017-08-30 14:45:59.813102-04
+i733ly1gzgbxv4e095sifi69e6irxf72	MWJjMTM3OWY3YWFmYmY3ZmM0ZTA3ZDJjOTcxMjM5MjNjNGVlZGI3ZDp7Il9hdXRoX3VzZXJfaGFzaCI6IjAwYTM1ZTg5Yzg1MzRiODA4NWUzNmFkZGQ0Zjk3OGM0ODg2Y2E1NWMiLCJfYXV0aF91c2VyX2JhY2tlbmQiOiJkamFuZ28uY29udHJpYi5hdXRoLmJhY2tlbmRzLk1vZGVsQmFja2VuZCIsIl9hdXRoX3VzZXJfaWQiOiI3In0=	2017-08-30 14:49:54.553891-04
+2oqs04rpbcmh6h87iuvsvmc8zmaabspl	N2ZjMDBhNWYyOTQ2MGFkMDg2NGUxYmIwZjQwNmZkYzdkNGVhYjc2ZDp7Il9hdXRoX3VzZXJfaGFzaCI6ImE1MDVmZGQ3OTE2NTk0NWViY2YzMTRjMWUzZGNiNjE3NTg2ODM3MjIiLCJfYXV0aF91c2VyX2JhY2tlbmQiOiJkamFuZ28uY29udHJpYi5hdXRoLmJhY2tlbmRzLk1vZGVsQmFja2VuZCIsIl9hdXRoX3VzZXJfaWQiOiI2In0=	2017-08-30 14:50:55.296016-04
+14z36nqot783ap2k391v2eazfhozxwhc	Y2U5MTUwZDhhMzE3N2MyMzIyZGVmNzQ1OTEzYTg0MzBhNGQxZjBiMjp7Il9hdXRoX3VzZXJfaGFzaCI6ImU1ZGEzZDkwMTcwYWViNTIzNjYyZjNkOGEzZWNjYjgzYmE5ZmFlZWEiLCJfYXV0aF91c2VyX2JhY2tlbmQiOiJkamFuZ28uY29udHJpYi5hdXRoLmJhY2tlbmRzLk1vZGVsQmFja2VuZCIsIl9hdXRoX3VzZXJfaWQiOiIxIn0=	2017-08-30 15:24:32.609439-04
+5f1be8yae9ys8ya2va2vi3m8jbprgvkj	NzIzMzFhNTVhOTU2NTQ0ZjQ1NTFhYzE0NmZiNDcyMzk4M2QwMjk1ODp7Il9hdXRoX3VzZXJfaGFzaCI6ImJmM2NjOTI1YTA5MGM4YjRiNTgzODczMmFhOGYxNTQ0OTQ4N2I1Y2QiLCJfYXV0aF91c2VyX2JhY2tlbmQiOiJkamFuZ28uY29udHJpYi5hdXRoLmJhY2tlbmRzLk1vZGVsQmFja2VuZCIsIl9hdXRoX3VzZXJfaWQiOiIxMiJ9	2017-08-31 15:11:35.134923-04
+m6srp9x400i9juasercwqlxrj35sl1vw	Y2U5MTUwZDhhMzE3N2MyMzIyZGVmNzQ1OTEzYTg0MzBhNGQxZjBiMjp7Il9hdXRoX3VzZXJfaGFzaCI6ImU1ZGEzZDkwMTcwYWViNTIzNjYyZjNkOGEzZWNjYjgzYmE5ZmFlZWEiLCJfYXV0aF91c2VyX2JhY2tlbmQiOiJkamFuZ28uY29udHJpYi5hdXRoLmJhY2tlbmRzLk1vZGVsQmFja2VuZCIsIl9hdXRoX3VzZXJfaWQiOiIxIn0=	2017-09-01 07:20:05.490523-04
+7dt0xplnuccd7c7izloxdb0xrjisl3ju	N2UyM2ExN2QzNjYzZDBkOGViMmU4ZjY2NGZhNzU3M2YyMmNkODE5ODp7Il9hdXRoX3VzZXJfaWQiOiIxIiwiX2F1dGhfdXNlcl9iYWNrZW5kIjoiZGphbmdvLmNvbnRyaWIuYXV0aC5iYWNrZW5kcy5Nb2RlbEJhY2tlbmQiLCJfYXV0aF91c2VyX2hhc2giOiJlNWRhM2Q5MDE3MGFlYjUyMzY2MmYzZDhhM2VjY2I4M2JhOWZhZWVhIn0=	2017-09-04 15:16:23.578364-04
+smybr0k9sqliumq9vyxoqhuw02ldf378	Yjg1MzI2ODRmNjYxNzY3YTk1NTZiYWM5MGExNGVjYzlmMzIwYWU0YTp7Il9hdXRoX3VzZXJfaWQiOiI0IiwiX2F1dGhfdXNlcl9iYWNrZW5kIjoiZGphbmdvLmNvbnRyaWIuYXV0aC5iYWNrZW5kcy5Nb2RlbEJhY2tlbmQiLCJfYXV0aF91c2VyX2hhc2giOiI3ZDg0ODc5NmY0Mjc5Y2FkM2FmMzMzNjk0MTNkMWQ1MjFmYjkzNzUwIn0=	2017-09-04 18:25:53.168725-04
+w9pfspdobx0dn1148aerm4dtg0kxtest	YWM5MjNmYTI3ZGUyYTQwN2I2MzBiNWZkOWJmZWIyZjUwYTk3Yzk0MDp7Il9hdXRoX3VzZXJfaWQiOiI4IiwiX2F1dGhfdXNlcl9iYWNrZW5kIjoiZGphbmdvLmNvbnRyaWIuYXV0aC5iYWNrZW5kcy5Nb2RlbEJhY2tlbmQiLCJfYXV0aF91c2VyX2hhc2giOiIzZjNlOGY5ZDBmOTNhZjY5NjI2ZDQ3Zjg3MjlkODYzOWFkZDI0MzUwIn0=	2017-09-05 11:39:40.261296-04
+ibfax2rwgljdj57rrn6kp4yyh469w4ph	N2Q0Y2M2NzViNzg3ZWY2MWM4NjUyZDc5OGM4M2Y5MWI1OTQwMGU5ZDp7Il9hdXRoX3VzZXJfaWQiOiIxNiIsIl9hdXRoX3VzZXJfYmFja2VuZCI6ImRqYW5nby5jb250cmliLmF1dGguYmFja2VuZHMuTW9kZWxCYWNrZW5kIiwiX2F1dGhfdXNlcl9oYXNoIjoiYzBhNmNjZWE3ZjAzMjE4MmRjMjVhMWZhYTVlM2U4YThmNDgxZGQ4MiJ9	2017-09-05 16:54:56.989184-04
+nj1vwjm68fr4f41n26k730c4pys77qcn	ZjI1OWJhMWU3YWVjNWQyMTQxNzc1ODdiYTc5N2ZmYzE5Njg2OTI4Yjp7Il9hdXRoX3VzZXJfYmFja2VuZCI6ImRqYW5nby5jb250cmliLmF1dGguYmFja2VuZHMuTW9kZWxCYWNrZW5kIiwiX2F1dGhfdXNlcl9oYXNoIjoiZTVkYTNkOTAxNzBhZWI1MjM2NjJmM2Q4YTNlY2NiODNiYTlmYWVlYSIsIl9hdXRoX3VzZXJfaWQiOiIxIn0=	2017-09-05 22:10:01.591543-04
+\.
+
+
+--
+-- Data for Name: django_site; Type: TABLE DATA; Schema: public; Owner: pollpar
+--
+
+COPY django_site (id, domain, name) FROM stdin;
+1	example.com	example.com
+\.
+
+
+--
+-- Name: django_site_id_seq; Type: SEQUENCE SET; Schema: public; Owner: pollpar
+--
+
+SELECT pg_catalog.setval('django_site_id_seq', 1, true);
+
+
+--
+-- Data for Name: socialaccount_socialaccount; Type: TABLE DATA; Schema: public; Owner: pollpar
+--
+
+COPY socialaccount_socialaccount (id, provider, uid, last_login, date_joined, extra_data, user_id) FROM stdin;
+\.
+
+
+--
+-- Name: socialaccount_socialaccount_id_seq; Type: SEQUENCE SET; Schema: public; Owner: pollpar
+--
+
+SELECT pg_catalog.setval('socialaccount_socialaccount_id_seq', 1, false);
+
+
+--
+-- Data for Name: socialaccount_socialapp; Type: TABLE DATA; Schema: public; Owner: pollpar
+--
+
+COPY socialaccount_socialapp (id, provider, name, client_id, secret, key) FROM stdin;
+\.
+
+
+--
+-- Name: socialaccount_socialapp_id_seq; Type: SEQUENCE SET; Schema: public; Owner: pollpar
+--
+
+SELECT pg_catalog.setval('socialaccount_socialapp_id_seq', 1, false);
+
+
+--
+-- Data for Name: socialaccount_socialapp_sites; Type: TABLE DATA; Schema: public; Owner: pollpar
+--
+
+COPY socialaccount_socialapp_sites (id, socialapp_id, site_id) FROM stdin;
+\.
+
+
+--
+-- Name: socialaccount_socialapp_sites_id_seq; Type: SEQUENCE SET; Schema: public; Owner: pollpar
+--
+
+SELECT pg_catalog.setval('socialaccount_socialapp_sites_id_seq', 1, false);
+
+
+--
+-- Data for Name: socialaccount_socialtoken; Type: TABLE DATA; Schema: public; Owner: pollpar
+--
+
+COPY socialaccount_socialtoken (id, token, token_secret, expires_at, account_id, app_id) FROM stdin;
+\.
+
+
+--
+-- Name: socialaccount_socialtoken_id_seq; Type: SEQUENCE SET; Schema: public; Owner: pollpar
+--
+
+SELECT pg_catalog.setval('socialaccount_socialtoken_id_seq', 1, false);
+
+
+--
+-- Name: account_emailaddress_email_key; Type: CONSTRAINT; Schema: public; Owner: pollpar; Tablespace: 
+--
+
+ALTER TABLE ONLY account_emailaddress
+    ADD CONSTRAINT account_emailaddress_email_key UNIQUE (email);
+
+
+--
+-- Name: account_emailaddress_pkey; Type: CONSTRAINT; Schema: public; Owner: pollpar; Tablespace: 
+--
+
+ALTER TABLE ONLY account_emailaddress
+    ADD CONSTRAINT account_emailaddress_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: account_emailconfirmation_key_key; Type: CONSTRAINT; Schema: public; Owner: pollpar; Tablespace: 
+--
+
+ALTER TABLE ONLY account_emailconfirmation
+    ADD CONSTRAINT account_emailconfirmation_key_key UNIQUE (key);
+
+
+--
+-- Name: account_emailconfirmation_pkey; Type: CONSTRAINT; Schema: public; Owner: pollpar; Tablespace: 
+--
+
+ALTER TABLE ONLY account_emailconfirmation
+    ADD CONSTRAINT account_emailconfirmation_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: app_jefesupermercado_pkey; Type: CONSTRAINT; Schema: public; Owner: pollpar; Tablespace: 
+--
+
+ALTER TABLE ONLY app_jefesupermercado
+    ADD CONSTRAINT app_jefesupermercado_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: app_marcacione_pkey; Type: CONSTRAINT; Schema: public; Owner: pollpar; Tablespace: 
+--
+
+ALTER TABLE ONLY app_marcacione
+    ADD CONSTRAINT app_marcacione_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: app_perfile_pkey; Type: CONSTRAINT; Schema: public; Owner: pollpar; Tablespace: 
+--
+
+ALTER TABLE ONLY app_perfile
+    ADD CONSTRAINT app_perfile_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: auth_group_name_key; Type: CONSTRAINT; Schema: public; Owner: pollpar; Tablespace: 
+--
+
+ALTER TABLE ONLY auth_group
+    ADD CONSTRAINT auth_group_name_key UNIQUE (name);
+
+
+--
+-- Name: auth_group_permissions_group_id_0cd325b0_uniq; Type: CONSTRAINT; Schema: public; Owner: pollpar; Tablespace: 
+--
+
+ALTER TABLE ONLY auth_group_permissions
+    ADD CONSTRAINT auth_group_permissions_group_id_0cd325b0_uniq UNIQUE (group_id, permission_id);
+
+
+--
+-- Name: auth_group_permissions_pkey; Type: CONSTRAINT; Schema: public; Owner: pollpar; Tablespace: 
+--
+
+ALTER TABLE ONLY auth_group_permissions
+    ADD CONSTRAINT auth_group_permissions_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: auth_group_pkey; Type: CONSTRAINT; Schema: public; Owner: pollpar; Tablespace: 
+--
+
+ALTER TABLE ONLY auth_group
+    ADD CONSTRAINT auth_group_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: auth_permission_content_type_id_01ab375a_uniq; Type: CONSTRAINT; Schema: public; Owner: pollpar; Tablespace: 
+--
+
+ALTER TABLE ONLY auth_permission
+    ADD CONSTRAINT auth_permission_content_type_id_01ab375a_uniq UNIQUE (content_type_id, codename);
+
+
+--
+-- Name: auth_permission_pkey; Type: CONSTRAINT; Schema: public; Owner: pollpar; Tablespace: 
+--
+
+ALTER TABLE ONLY auth_permission
+    ADD CONSTRAINT auth_permission_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: auth_user_groups_pkey; Type: CONSTRAINT; Schema: public; Owner: pollpar; Tablespace: 
+--
+
+ALTER TABLE ONLY auth_user_groups
+    ADD CONSTRAINT auth_user_groups_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: auth_user_groups_user_id_94350c0c_uniq; Type: CONSTRAINT; Schema: public; Owner: pollpar; Tablespace: 
+--
+
+ALTER TABLE ONLY auth_user_groups
+    ADD CONSTRAINT auth_user_groups_user_id_94350c0c_uniq UNIQUE (user_id, group_id);
+
+
+--
+-- Name: auth_user_pkey; Type: CONSTRAINT; Schema: public; Owner: pollpar; Tablespace: 
+--
+
+ALTER TABLE ONLY auth_user
+    ADD CONSTRAINT auth_user_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: auth_user_user_permissions_pkey; Type: CONSTRAINT; Schema: public; Owner: pollpar; Tablespace: 
+--
+
+ALTER TABLE ONLY auth_user_user_permissions
+    ADD CONSTRAINT auth_user_user_permissions_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: auth_user_user_permissions_user_id_14a6b632_uniq; Type: CONSTRAINT; Schema: public; Owner: pollpar; Tablespace: 
+--
+
+ALTER TABLE ONLY auth_user_user_permissions
+    ADD CONSTRAINT auth_user_user_permissions_user_id_14a6b632_uniq UNIQUE (user_id, permission_id);
+
+
+--
+-- Name: auth_user_username_key; Type: CONSTRAINT; Schema: public; Owner: pollpar; Tablespace: 
+--
+
+ALTER TABLE ONLY auth_user
+    ADD CONSTRAINT auth_user_username_key UNIQUE (username);
+
+
+--
+-- Name: authtoken_token_pkey; Type: CONSTRAINT; Schema: public; Owner: pollpar; Tablespace: 
+--
+
+ALTER TABLE ONLY authtoken_token
+    ADD CONSTRAINT authtoken_token_pkey PRIMARY KEY (key);
+
+
+--
+-- Name: authtoken_token_user_id_key; Type: CONSTRAINT; Schema: public; Owner: pollpar; Tablespace: 
+--
+
+ALTER TABLE ONLY authtoken_token
+    ADD CONSTRAINT authtoken_token_user_id_key UNIQUE (user_id);
+
+
+--
+-- Name: django_admin_log_pkey; Type: CONSTRAINT; Schema: public; Owner: pollpar; Tablespace: 
+--
+
+ALTER TABLE ONLY django_admin_log
+    ADD CONSTRAINT django_admin_log_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: django_content_type_app_label_76bd3d3b_uniq; Type: CONSTRAINT; Schema: public; Owner: pollpar; Tablespace: 
+--
+
+ALTER TABLE ONLY django_content_type
+    ADD CONSTRAINT django_content_type_app_label_76bd3d3b_uniq UNIQUE (app_label, model);
+
+
+--
+-- Name: django_content_type_pkey; Type: CONSTRAINT; Schema: public; Owner: pollpar; Tablespace: 
+--
+
+ALTER TABLE ONLY django_content_type
+    ADD CONSTRAINT django_content_type_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: django_migrations_pkey; Type: CONSTRAINT; Schema: public; Owner: pollpar; Tablespace: 
+--
+
+ALTER TABLE ONLY django_migrations
+    ADD CONSTRAINT django_migrations_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: django_session_pkey; Type: CONSTRAINT; Schema: public; Owner: pollpar; Tablespace: 
+--
+
+ALTER TABLE ONLY django_session
+    ADD CONSTRAINT django_session_pkey PRIMARY KEY (session_key);
+
+
+--
+-- Name: django_site_domain_a2e37b91_uniq; Type: CONSTRAINT; Schema: public; Owner: pollpar; Tablespace: 
+--
+
+ALTER TABLE ONLY django_site
+    ADD CONSTRAINT django_site_domain_a2e37b91_uniq UNIQUE (domain);
+
+
+--
+-- Name: django_site_pkey; Type: CONSTRAINT; Schema: public; Owner: pollpar; Tablespace: 
+--
+
+ALTER TABLE ONLY django_site
+    ADD CONSTRAINT django_site_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: socialaccount_socialaccount_pkey; Type: CONSTRAINT; Schema: public; Owner: pollpar; Tablespace: 
+--
+
+ALTER TABLE ONLY socialaccount_socialaccount
+    ADD CONSTRAINT socialaccount_socialaccount_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: socialaccount_socialaccount_provider_fc810c6e_uniq; Type: CONSTRAINT; Schema: public; Owner: pollpar; Tablespace: 
+--
+
+ALTER TABLE ONLY socialaccount_socialaccount
+    ADD CONSTRAINT socialaccount_socialaccount_provider_fc810c6e_uniq UNIQUE (provider, uid);
+
+
+--
+-- Name: socialaccount_socialapp_pkey; Type: CONSTRAINT; Schema: public; Owner: pollpar; Tablespace: 
+--
+
+ALTER TABLE ONLY socialaccount_socialapp
+    ADD CONSTRAINT socialaccount_socialapp_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: socialaccount_socialapp_sites_pkey; Type: CONSTRAINT; Schema: public; Owner: pollpar; Tablespace: 
+--
+
+ALTER TABLE ONLY socialaccount_socialapp_sites
+    ADD CONSTRAINT socialaccount_socialapp_sites_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: socialaccount_socialapp_sites_socialapp_id_71a9a768_uniq; Type: CONSTRAINT; Schema: public; Owner: pollpar; Tablespace: 
+--
+
+ALTER TABLE ONLY socialaccount_socialapp_sites
+    ADD CONSTRAINT socialaccount_socialapp_sites_socialapp_id_71a9a768_uniq UNIQUE (socialapp_id, site_id);
+
+
+--
+-- Name: socialaccount_socialtoken_app_id_fca4e0ac_uniq; Type: CONSTRAINT; Schema: public; Owner: pollpar; Tablespace: 
+--
+
+ALTER TABLE ONLY socialaccount_socialtoken
+    ADD CONSTRAINT socialaccount_socialtoken_app_id_fca4e0ac_uniq UNIQUE (app_id, account_id);
+
+
+--
+-- Name: socialaccount_socialtoken_pkey; Type: CONSTRAINT; Schema: public; Owner: pollpar; Tablespace: 
+--
+
+ALTER TABLE ONLY socialaccount_socialtoken
+    ADD CONSTRAINT socialaccount_socialtoken_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: account_emailaddress_e8701ad4; Type: INDEX; Schema: public; Owner: pollpar; Tablespace: 
+--
+
+CREATE INDEX account_emailaddress_e8701ad4 ON account_emailaddress USING btree (user_id);
+
+
+--
+-- Name: account_emailaddress_email_03be32b2_like; Type: INDEX; Schema: public; Owner: pollpar; Tablespace: 
+--
+
+CREATE INDEX account_emailaddress_email_03be32b2_like ON account_emailaddress USING btree (email varchar_pattern_ops);
+
+
+--
+-- Name: account_emailconfirmation_6f1edeac; Type: INDEX; Schema: public; Owner: pollpar; Tablespace: 
+--
+
+CREATE INDEX account_emailconfirmation_6f1edeac ON account_emailconfirmation USING btree (email_address_id);
+
+
+--
+-- Name: account_emailconfirmation_key_f43612bd_like; Type: INDEX; Schema: public; Owner: pollpar; Tablespace: 
+--
+
+CREATE INDEX account_emailconfirmation_key_f43612bd_like ON account_emailconfirmation USING btree (key varchar_pattern_ops);
+
+
+--
+-- Name: app_jefesupermercado_abfe0f96; Type: INDEX; Schema: public; Owner: pollpar; Tablespace: 
+--
+
+CREATE INDEX app_jefesupermercado_abfe0f96 ON app_jefesupermercado USING btree (usuario_id);
+
+
+--
+-- Name: app_marcacione_abfe0f96; Type: INDEX; Schema: public; Owner: pollpar; Tablespace: 
+--
+
+CREATE INDEX app_marcacione_abfe0f96 ON app_marcacione USING btree (usuario_id);
+
+
+--
+-- Name: app_perfile_abfe0f96; Type: INDEX; Schema: public; Owner: pollpar; Tablespace: 
+--
+
+CREATE INDEX app_perfile_abfe0f96 ON app_perfile USING btree (usuario_id);
+
+
+--
+-- Name: app_perfile_bac5e582; Type: INDEX; Schema: public; Owner: pollpar; Tablespace: 
+--
+
+CREATE INDEX app_perfile_bac5e582 ON app_perfile USING btree (jefe_id);
+
+
+--
+-- Name: auth_group_name_a6ea08ec_like; Type: INDEX; Schema: public; Owner: pollpar; Tablespace: 
+--
+
+CREATE INDEX auth_group_name_a6ea08ec_like ON auth_group USING btree (name varchar_pattern_ops);
+
+
+--
+-- Name: auth_group_permissions_0e939a4f; Type: INDEX; Schema: public; Owner: pollpar; Tablespace: 
+--
+
+CREATE INDEX auth_group_permissions_0e939a4f ON auth_group_permissions USING btree (group_id);
+
+
+--
+-- Name: auth_group_permissions_8373b171; Type: INDEX; Schema: public; Owner: pollpar; Tablespace: 
+--
+
+CREATE INDEX auth_group_permissions_8373b171 ON auth_group_permissions USING btree (permission_id);
+
+
+--
+-- Name: auth_permission_417f1b1c; Type: INDEX; Schema: public; Owner: pollpar; Tablespace: 
+--
+
+CREATE INDEX auth_permission_417f1b1c ON auth_permission USING btree (content_type_id);
+
+
+--
+-- Name: auth_user_groups_0e939a4f; Type: INDEX; Schema: public; Owner: pollpar; Tablespace: 
+--
+
+CREATE INDEX auth_user_groups_0e939a4f ON auth_user_groups USING btree (group_id);
+
+
+--
+-- Name: auth_user_groups_e8701ad4; Type: INDEX; Schema: public; Owner: pollpar; Tablespace: 
+--
+
+CREATE INDEX auth_user_groups_e8701ad4 ON auth_user_groups USING btree (user_id);
+
+
+--
+-- Name: auth_user_user_permissions_8373b171; Type: INDEX; Schema: public; Owner: pollpar; Tablespace: 
+--
+
+CREATE INDEX auth_user_user_permissions_8373b171 ON auth_user_user_permissions USING btree (permission_id);
+
+
+--
+-- Name: auth_user_user_permissions_e8701ad4; Type: INDEX; Schema: public; Owner: pollpar; Tablespace: 
+--
+
+CREATE INDEX auth_user_user_permissions_e8701ad4 ON auth_user_user_permissions USING btree (user_id);
+
+
+--
+-- Name: auth_user_username_6821ab7c_like; Type: INDEX; Schema: public; Owner: pollpar; Tablespace: 
+--
+
+CREATE INDEX auth_user_username_6821ab7c_like ON auth_user USING btree (username varchar_pattern_ops);
+
+
+--
+-- Name: authtoken_token_key_10f0b77e_like; Type: INDEX; Schema: public; Owner: pollpar; Tablespace: 
+--
+
+CREATE INDEX authtoken_token_key_10f0b77e_like ON authtoken_token USING btree (key varchar_pattern_ops);
+
+
+--
+-- Name: django_admin_log_417f1b1c; Type: INDEX; Schema: public; Owner: pollpar; Tablespace: 
+--
+
+CREATE INDEX django_admin_log_417f1b1c ON django_admin_log USING btree (content_type_id);
+
+
+--
+-- Name: django_admin_log_e8701ad4; Type: INDEX; Schema: public; Owner: pollpar; Tablespace: 
+--
+
+CREATE INDEX django_admin_log_e8701ad4 ON django_admin_log USING btree (user_id);
+
+
+--
+-- Name: django_session_de54fa62; Type: INDEX; Schema: public; Owner: pollpar; Tablespace: 
+--
+
+CREATE INDEX django_session_de54fa62 ON django_session USING btree (expire_date);
+
+
+--
+-- Name: django_session_session_key_c0390e0f_like; Type: INDEX; Schema: public; Owner: pollpar; Tablespace: 
+--
+
+CREATE INDEX django_session_session_key_c0390e0f_like ON django_session USING btree (session_key varchar_pattern_ops);
+
+
+--
+-- Name: django_site_domain_a2e37b91_like; Type: INDEX; Schema: public; Owner: pollpar; Tablespace: 
+--
+
+CREATE INDEX django_site_domain_a2e37b91_like ON django_site USING btree (domain varchar_pattern_ops);
+
+
+--
+-- Name: socialaccount_socialaccount_e8701ad4; Type: INDEX; Schema: public; Owner: pollpar; Tablespace: 
+--
+
+CREATE INDEX socialaccount_socialaccount_e8701ad4 ON socialaccount_socialaccount USING btree (user_id);
+
+
+--
+-- Name: socialaccount_socialapp_sites_9365d6e7; Type: INDEX; Schema: public; Owner: pollpar; Tablespace: 
+--
+
+CREATE INDEX socialaccount_socialapp_sites_9365d6e7 ON socialaccount_socialapp_sites USING btree (site_id);
+
+
+--
+-- Name: socialaccount_socialapp_sites_fe95b0a0; Type: INDEX; Schema: public; Owner: pollpar; Tablespace: 
+--
+
+CREATE INDEX socialaccount_socialapp_sites_fe95b0a0 ON socialaccount_socialapp_sites USING btree (socialapp_id);
+
+
+--
+-- Name: socialaccount_socialtoken_8a089c2a; Type: INDEX; Schema: public; Owner: pollpar; Tablespace: 
+--
+
+CREATE INDEX socialaccount_socialtoken_8a089c2a ON socialaccount_socialtoken USING btree (account_id);
+
+
+--
+-- Name: socialaccount_socialtoken_f382adfe; Type: INDEX; Schema: public; Owner: pollpar; Tablespace: 
+--
+
+CREATE INDEX socialaccount_socialtoken_f382adfe ON socialaccount_socialtoken USING btree (app_id);
+
+
+--
+-- Name: account_em_email_address_id_5b7f8c58_fk_account_emailaddress_id; Type: FK CONSTRAINT; Schema: public; Owner: pollpar
+--
+
+ALTER TABLE ONLY account_emailconfirmation
+    ADD CONSTRAINT account_em_email_address_id_5b7f8c58_fk_account_emailaddress_id FOREIGN KEY (email_address_id) REFERENCES account_emailaddress(id) DEFERRABLE INITIALLY DEFERRED;
+
+
+--
+-- Name: account_emailaddress_user_id_2c513194_fk_auth_user_id; Type: FK CONSTRAINT; Schema: public; Owner: pollpar
+--
+
+ALTER TABLE ONLY account_emailaddress
+    ADD CONSTRAINT account_emailaddress_user_id_2c513194_fk_auth_user_id FOREIGN KEY (user_id) REFERENCES auth_user(id) DEFERRABLE INITIALLY DEFERRED;
+
+
+--
+-- Name: app_jefesupermercado_usuario_id_31a8396e_fk_auth_user_id; Type: FK CONSTRAINT; Schema: public; Owner: pollpar
+--
+
+ALTER TABLE ONLY app_jefesupermercado
+    ADD CONSTRAINT app_jefesupermercado_usuario_id_31a8396e_fk_auth_user_id FOREIGN KEY (usuario_id) REFERENCES auth_user(id) DEFERRABLE INITIALLY DEFERRED;
+
+
+--
+-- Name: app_marcacione_usuario_id_ca33074d_fk_auth_user_id; Type: FK CONSTRAINT; Schema: public; Owner: pollpar
+--
+
+ALTER TABLE ONLY app_marcacione
+    ADD CONSTRAINT app_marcacione_usuario_id_ca33074d_fk_auth_user_id FOREIGN KEY (usuario_id) REFERENCES auth_user(id) DEFERRABLE INITIALLY DEFERRED;
+
+
+--
+-- Name: app_perfile_jefe_id_a096aba0_fk_app_jefesupermercado_id; Type: FK CONSTRAINT; Schema: public; Owner: pollpar
+--
+
+ALTER TABLE ONLY app_perfile
+    ADD CONSTRAINT app_perfile_jefe_id_a096aba0_fk_app_jefesupermercado_id FOREIGN KEY (jefe_id) REFERENCES app_jefesupermercado(id) DEFERRABLE INITIALLY DEFERRED;
+
+
+--
+-- Name: app_perfile_usuario_id_8e4e0375_fk_auth_user_id; Type: FK CONSTRAINT; Schema: public; Owner: pollpar
+--
+
+ALTER TABLE ONLY app_perfile
+    ADD CONSTRAINT app_perfile_usuario_id_8e4e0375_fk_auth_user_id FOREIGN KEY (usuario_id) REFERENCES auth_user(id) DEFERRABLE INITIALLY DEFERRED;
+
+
+--
+-- Name: auth_group_permiss_permission_id_84c5c92e_fk_auth_permission_id; Type: FK CONSTRAINT; Schema: public; Owner: pollpar
+--
+
+ALTER TABLE ONLY auth_group_permissions
+    ADD CONSTRAINT auth_group_permiss_permission_id_84c5c92e_fk_auth_permission_id FOREIGN KEY (permission_id) REFERENCES auth_permission(id) DEFERRABLE INITIALLY DEFERRED;
+
+
+--
+-- Name: auth_group_permissions_group_id_b120cbf9_fk_auth_group_id; Type: FK CONSTRAINT; Schema: public; Owner: pollpar
+--
+
+ALTER TABLE ONLY auth_group_permissions
+    ADD CONSTRAINT auth_group_permissions_group_id_b120cbf9_fk_auth_group_id FOREIGN KEY (group_id) REFERENCES auth_group(id) DEFERRABLE INITIALLY DEFERRED;
+
+
+--
+-- Name: auth_permiss_content_type_id_2f476e4b_fk_django_content_type_id; Type: FK CONSTRAINT; Schema: public; Owner: pollpar
+--
+
+ALTER TABLE ONLY auth_permission
+    ADD CONSTRAINT auth_permiss_content_type_id_2f476e4b_fk_django_content_type_id FOREIGN KEY (content_type_id) REFERENCES django_content_type(id) DEFERRABLE INITIALLY DEFERRED;
+
+
+--
+-- Name: auth_user_groups_group_id_97559544_fk_auth_group_id; Type: FK CONSTRAINT; Schema: public; Owner: pollpar
+--
+
+ALTER TABLE ONLY auth_user_groups
+    ADD CONSTRAINT auth_user_groups_group_id_97559544_fk_auth_group_id FOREIGN KEY (group_id) REFERENCES auth_group(id) DEFERRABLE INITIALLY DEFERRED;
+
+
+--
+-- Name: auth_user_groups_user_id_6a12ed8b_fk_auth_user_id; Type: FK CONSTRAINT; Schema: public; Owner: pollpar
+--
+
+ALTER TABLE ONLY auth_user_groups
+    ADD CONSTRAINT auth_user_groups_user_id_6a12ed8b_fk_auth_user_id FOREIGN KEY (user_id) REFERENCES auth_user(id) DEFERRABLE INITIALLY DEFERRED;
+
+
+--
+-- Name: auth_user_user_per_permission_id_1fbb5f2c_fk_auth_permission_id; Type: FK CONSTRAINT; Schema: public; Owner: pollpar
+--
+
+ALTER TABLE ONLY auth_user_user_permissions
+    ADD CONSTRAINT auth_user_user_per_permission_id_1fbb5f2c_fk_auth_permission_id FOREIGN KEY (permission_id) REFERENCES auth_permission(id) DEFERRABLE INITIALLY DEFERRED;
+
+
+--
+-- Name: auth_user_user_permissions_user_id_a95ead1b_fk_auth_user_id; Type: FK CONSTRAINT; Schema: public; Owner: pollpar
+--
+
+ALTER TABLE ONLY auth_user_user_permissions
+    ADD CONSTRAINT auth_user_user_permissions_user_id_a95ead1b_fk_auth_user_id FOREIGN KEY (user_id) REFERENCES auth_user(id) DEFERRABLE INITIALLY DEFERRED;
+
+
+--
+-- Name: authtoken_token_user_id_35299eff_fk_auth_user_id; Type: FK CONSTRAINT; Schema: public; Owner: pollpar
+--
+
+ALTER TABLE ONLY authtoken_token
+    ADD CONSTRAINT authtoken_token_user_id_35299eff_fk_auth_user_id FOREIGN KEY (user_id) REFERENCES auth_user(id) DEFERRABLE INITIALLY DEFERRED;
+
+
+--
+-- Name: django_admin_content_type_id_c4bce8eb_fk_django_content_type_id; Type: FK CONSTRAINT; Schema: public; Owner: pollpar
+--
+
+ALTER TABLE ONLY django_admin_log
+    ADD CONSTRAINT django_admin_content_type_id_c4bce8eb_fk_django_content_type_id FOREIGN KEY (content_type_id) REFERENCES django_content_type(id) DEFERRABLE INITIALLY DEFERRED;
+
+
+--
+-- Name: django_admin_log_user_id_c564eba6_fk_auth_user_id; Type: FK CONSTRAINT; Schema: public; Owner: pollpar
+--
+
+ALTER TABLE ONLY django_admin_log
+    ADD CONSTRAINT django_admin_log_user_id_c564eba6_fk_auth_user_id FOREIGN KEY (user_id) REFERENCES auth_user(id) DEFERRABLE INITIALLY DEFERRED;
+
+
+--
+-- Name: socialacc_account_id_951f210e_fk_socialaccount_socialaccount_id; Type: FK CONSTRAINT; Schema: public; Owner: pollpar
+--
+
+ALTER TABLE ONLY socialaccount_socialtoken
+    ADD CONSTRAINT socialacc_account_id_951f210e_fk_socialaccount_socialaccount_id FOREIGN KEY (account_id) REFERENCES socialaccount_socialaccount(id) DEFERRABLE INITIALLY DEFERRED;
+
+
+--
+-- Name: socialaccou_socialapp_id_97fb6e7d_fk_socialaccount_socialapp_id; Type: FK CONSTRAINT; Schema: public; Owner: pollpar
+--
+
+ALTER TABLE ONLY socialaccount_socialapp_sites
+    ADD CONSTRAINT socialaccou_socialapp_id_97fb6e7d_fk_socialaccount_socialapp_id FOREIGN KEY (socialapp_id) REFERENCES socialaccount_socialapp(id) DEFERRABLE INITIALLY DEFERRED;
+
+
+--
+-- Name: socialaccount_soc_app_id_636a42d7_fk_socialaccount_socialapp_id; Type: FK CONSTRAINT; Schema: public; Owner: pollpar
+--
+
+ALTER TABLE ONLY socialaccount_socialtoken
+    ADD CONSTRAINT socialaccount_soc_app_id_636a42d7_fk_socialaccount_socialapp_id FOREIGN KEY (app_id) REFERENCES socialaccount_socialapp(id) DEFERRABLE INITIALLY DEFERRED;
+
+
+--
+-- Name: socialaccount_socialaccount_user_id_8146e70c_fk_auth_user_id; Type: FK CONSTRAINT; Schema: public; Owner: pollpar
+--
+
+ALTER TABLE ONLY socialaccount_socialaccount
+    ADD CONSTRAINT socialaccount_socialaccount_user_id_8146e70c_fk_auth_user_id FOREIGN KEY (user_id) REFERENCES auth_user(id) DEFERRABLE INITIALLY DEFERRED;
+
+
+--
+-- Name: socialaccount_socialapp_site_site_id_2579dee5_fk_django_site_id; Type: FK CONSTRAINT; Schema: public; Owner: pollpar
+--
+
+ALTER TABLE ONLY socialaccount_socialapp_sites
+    ADD CONSTRAINT socialaccount_socialapp_site_site_id_2579dee5_fk_django_site_id FOREIGN KEY (site_id) REFERENCES django_site(id) DEFERRABLE INITIALLY DEFERRED;
+
+
+--
+-- Name: public; Type: ACL; Schema: -; Owner: postgres
+--
+
+REVOKE ALL ON SCHEMA public FROM PUBLIC;
+REVOKE ALL ON SCHEMA public FROM postgres;
+GRANT ALL ON SCHEMA public TO postgres;
+GRANT ALL ON SCHEMA public TO PUBLIC;
+
+
+--
+-- PostgreSQL database dump complete
+--
+

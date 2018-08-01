@@ -1,0 +1,19 @@
+[Wed Sep 06 09:36:11.712143 2017] [:error] [pid 3167:tid 139822975641472] Exception ignored in: <module 'threading' from '/usr/lib/python3.4/threading.py'>
+[Wed Sep 06 09:36:11.712229 2017] [:error] [pid 3167:tid 139822975641472] Traceback (most recent call last):
+[Wed Sep 06 09:36:11.712245 2017] [:error] [pid 3167:tid 139822975641472]   File "/usr/lib/python3.4/threading.py", line 1288, in _shutdown
+[Wed Sep 06 09:36:11.712956 2017] [:error] [pid 3167:tid 139822975641472]     assert tlock is not None
+[Wed Sep 06 09:36:11.712984 2017] [:error] [pid 3167:tid 139822975641472] AssertionError: 
+[Wed Sep 06 09:36:15.047994 2017] [core:warn] [pid 3163:tid 139822975641472] AH00045: child process 3166 still did not exit, sending a SIGTERM
+[Wed Sep 06 09:36:17.050254 2017] [core:warn] [pid 3163:tid 139822975641472] AH00045: child process 3166 still did not exit, sending a SIGTERM
+[Wed Sep 06 09:36:19.052487 2017] [core:warn] [pid 3163:tid 139822975641472] AH00045: child process 3166 still did not exit, sending a SIGTERM
+[Wed Sep 06 09:36:21.054730 2017] [core:error] [pid 3163:tid 139822975641472] AH00046: child process 3166 still did not exit, sending a SIGKILL
+[Wed Sep 06 09:36:22.056017 2017] [mpm_event:notice] [pid 3163:tid 139822975641472] AH00491: caught SIGTERM, shutting down
+[Wed Sep 06 09:36:22.078819 2017] [:error] [pid 3165:tid 139822975641472] Exception ignored in: <module 'threading' from '/usr/lib/python3.4/threading.py'>
+[Wed Sep 06 09:36:22.078893 2017] [:error] [pid 3165:tid 139822975641472] Traceback (most recent call last):
+[Wed Sep 06 09:36:22.078909 2017] [:error] [pid 3165:tid 139822975641472]   File "/usr/lib/python3.4/threading.py", line 1288, in _shutdown
+[Wed Sep 06 09:36:22.079598 2017] [:error] [pid 3165:tid 139822975641472]     assert tlock is not None
+[Wed Sep 06 09:36:22.079618 2017] [:error] [pid 3165:tid 139822975641472] AssertionError: 
+[Wed Sep 06 09:36:22.815933 2017] [:warn] [pid 3370:tid 140376787531648] mod_wsgi: Compiled for Python/3.4.0.
+[Wed Sep 06 09:36:22.816004 2017] [:warn] [pid 3370:tid 140376787531648] mod_wsgi: Runtime using Python/3.4.3.
+[Wed Sep 06 09:36:22.816955 2017] [mpm_event:notice] [pid 3370:tid 140376787531648] AH00489: Apache/2.4.7 (Ubuntu) OpenSSL/1.0.1f mod_wsgi/3.4 Python/3.4.3 configured -- resuming normal operations
+[Wed Sep 06 09:36:22.816979 2017] [core:notice] [pid 3370:tid 140376787531648] AH00094: Command line: '/usr/sbin/apache2'

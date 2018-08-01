@@ -1,0 +1,151 @@
+{% extends "base.html" %}
+{% load staticfiles %}
+
+
+{% block extra_estilos %}
+    <link rel="stylesheet" type="text/css" href="{% static 'libs/sweetalert/sweetalert.css' %}"> <!-- original -->
+    <link rel="stylesheet" type="text/css" href="{% static 'assets/styles/libs/sweetalert/sweetalert.min.css' %}"> <!-- customization -->
+    <link rel="stylesheet" type="text/css" href="{% static 'libs/prism/prism.css' %}"> <!-- original -->
+
+    <!-- BEGIN THEME STYLES -->
+    <link rel="stylesheet" type="text/css" href="{% static 'assets/styles/themes/primary.min.css' %}">
+    <link class="ks-sidebar-dark-style" rel="stylesheet" type="text/css" href="{% static 'assets/styles/themes/sidebar-black.min.css' %}">
+    <!-- END THEME STYLES -->
+
+    <link rel="stylesheet" type="text/css" href="{% static 'libs/select2/css/select2.min.css' %}"> <!-- Original -->
+    <link rel="stylesheet" type="text/css" href="{% static 'assets/styles/libs/select2/select2.min.css' %}"> <!-- Customization -->
+{% endblock %}
+{% block scrumb %}
+            <div class="ks-page-header">
+                <section class="ks-title-and-subtitle">
+                    <div class="ks-title-block">
+                        <h3 class="ks-main-title">Editar Colaborador</h3>
+                        <div class="ks-sub-title">El Colaborador agregado tendra acceso a la APP Provity.</div>
+                    </div>
+                </section>
+            </div>
+        {% endblock %}
+
+{% block contenido %}
+<div class="ks-dashboard-tabbed-sidebar-widgets">
+    <div class="modal-dialog" style="margin: 0">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Editar Colaborador</h5>
+                <button class="close">
+                    <span aria-hidden="true" class="la la-user"></span>
+                </button>
+            </div>
+            {% if error_msg %}
+                <div class="alert alert-danger ks-solid" role="alert">
+                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                        <span aria-hidden="true" class="la la-close"></span>
+                    </button>
+                    <strong>ERROR!</strong> {{ error_msg }}
+                </div>
+            {% endif %}
+            <div class="modal-body">
+                <div class="container-fluid">
+                    <form class="form-container" method="post">{% csrf_token %}
+                        <div class="form-group row">
+                            <label for="example-text-input" class="col-4 col-form-label">Nombres</label>
+                            <div class="col-8">
+                                <input class="form-control" type="text" name="nombres" value="{{ usuario.usuario.first_name | default:''}}" id="example-name-input">
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label for="example-search-input" class="col-4 col-form-label">Apellidos</label>
+                            <div class="col-8">
+                                <input class="form-control" type="text" name="apellidos" value="{{ usuario.usuario.last_name | default:''}}" id="example-apellido-input">
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label for="example-email-input" class="col-4 col-form-label">Correo Electrónico</label>
+                            <div class="col-8">
+                                <input class="form-control" type="email" name="email" value="{{ usuario.usuario.email | default:''}}" id="example-email-input">
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label for="example-url-input" class="col-4 col-form-label">C.I. N°</label>
+                            <div class="col-8">
+                                <input class="form-control" type="text" name="legajo" value="{{ form.legajo.value | default:''}}" id="example-url-input">
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label for="example-tel-input" class="col-4 col-form-label">Nombre de Usuario</label>
+                            <div class="col-8">
+                                <input class="form-control" type="text" name="usuario" value="{{ usuario.usuario.username | default:''}}" id="example-usuario-input">
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label for="example-tel-input" class="col-4 col-form-label">Comercios Asignados</label>
+                            <div class="col-8">
+                                <select class="form-control ks-select-tagging-support" multiple>
+                                    {% for comercio in comercios%}
+                                        <option>{{ comercio.nombre }}</option>
+                                    {% endfor %}
+                                </select>
+                            </div>
+                        </div>
+                       
+                        <div class="form-group row">
+                            <div class="text-center col-lg-12">
+                                <button type="submit" class="btn btn-primary">Guardar Cambios</button>
+                            </div>
+                            
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+
+
+{% block extra_scripts %}
+
+<script src="{% static 'libs/sweetalert/sweetalert.min.js' %}"></script>
+<script src="{% static 'libs/prism/prism.js' %}"></script>
+
+<!-- BEGIN THEME LAYOUT SCRIPTS -->
+<script src="{% static 'assets/scripts/common.min.js' %}"></script>
+<!-- END THEME LAYOUT SCRIPTS -->
+
+<script src="{% static 'libs/select2/js/select2.min.js' %}"></script>
+<script type="application/javascript">
+(function ($) {
+    $(document).ready(function() {
+
+        $('select.ks-select-tagging-support').select2({
+            tags: true
+        });
+        /*
+        document.querySelector('.sweet-4').onclick = function(){
+            swal({
+                    title: "Inhabilitar APP",
+                    text: "Este repositor ya no tendra acceso a la APP, pero seguira en la lista de Repositores Activos.",
+                    showCancelButton: true,
+                    confirmButtonClass: 'btn-danger',
+                    confirmButtonText: 'Inhabilitar',
+                    closeOnConfirm: false,
+                    closeOnCancel: true
+                },
+                function(){
+                    swal({
+                        title: "Inhabilitado!",
+                        text: "El repositor ya no tiene acceso a la APP",
+                        confirmButtonClass: 'btn-success',
+                        confirmButtonText: "Ok"
+                    });
+                });
+        };
+        */
+
+
+    });
+})(jQuery);
+</script>
+<!-- END PAGE LEVEL PLUGINS -->
+{% endblock %}

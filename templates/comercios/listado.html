@@ -1,0 +1,202 @@
+{% extends "base.html" %}
+{% load staticfiles %}
+
+{% block extra_estilos %}
+    <style type="text/css">
+        #mapa {
+            height: 500px;
+            width: 100%;
+        }
+    </style>
+    <link rel="stylesheet" type="text/css" href="{% static 'libs/bootstrap-daterange-picker/daterangepicker.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'assets/styles/libs/bootstrap-daterange-picker/daterangepicker.min.css' %}">
+    <!-- DATA TABLES -->
+    <link rel="stylesheet" type="text/css" href="{% static 'libs/datatables-net/media/css/dataTables.bootstrap4.min.css' %}"> <!-- original -->
+    <link rel="stylesheet" type="text/css" href="{% static 'assets/styles/libs/datatables-net/datatables.min.css' %}"> <!-- customization -->
+    <link rel="stylesheet" type="text/css" href="{% static 'libs/select2/css/select2.min.css' %}"> <!-- Original -->
+    <link rel="stylesheet" type="text/css" href="{% static 'assets/styles/libs/select2/select2.min.css' %}"> <!-- Customization -->
+{% endblock %}
+
+{% block scrumb %}
+            <div class="ks-page-header">
+                <section class="ks-title-and-subtitle">
+                    <div class="ks-title-block">
+                        <h3 class="ks-main-title">Listado de Áreas</h3>
+                        <div class="ks-sub-title"></div>
+                    </div>
+                </section>
+            </div>
+        {% endblock %}
+
+{% block contenido %}
+
+                        <div class="container-fluid">
+                            <div class="row">
+                                <div class="col-xl-6 col-md-6 col-sm-12">
+                                    <table id="ks-datatable" class="table table-striped table-bordered" width="100%">
+                                        <thead>
+                                        <tr>
+                                            <th>Nombre del Área</th>
+                                            <th>Acciones</th>
+                                        </tr>
+                                        </thead>
+                                        <tfoot>
+                                        <tr>
+                                            <th>Nombre del Área</th>
+                                            <th>Acciones</th>
+                                        </tr>
+                                        </tfoot>
+                                        <tbody>
+                                        {% for comercio in comercios %}
+                                        <tr>
+                                            <td>{{ comercio.nombre }}</td>
+                                            <td>
+                                                <a class="button btn btn-primary-outline open-mapa" data-toggle="modal" data-array="{{comercio.array}}" data-target=".bd-example-modal-lg" style="color: #25628F">
+                                                    <span class="la la-map-marker ks-icon"></span>
+                                                    <span class="ks-text">Mapa</span>
+                                                </a>
+                                                <a class="button btn btn-primary-outline open-mapa" href="/comercios/editar/{{comercio.id}}" data-target=".bd-example-modal-lg" style="color: #25628F">
+                                                    <span class="la la-edit ks-icon"></span>
+                                                    <span class="ks-text">Editar</span>
+                                                </a>
+                                            </td>
+                                        </tr>
+                                        {% endfor %}
+                                        </tbody>
+                                    </table>
+                                </div>
+                                <div class="col-xl-6 col-md-6 col-sm-12">
+                                    <!-- MAPA -->
+                                    <div id="mapa"></div>
+                                </div>
+                            </div>
+                        </div>
+{% endblock %}
+
+
+{% block scripts %}
+{% endblock %}
+
+{% block extra_scripts %}
+
+<!-- BEGIN PAGE LEVEL PLUGINS -->
+<script src="{% static 'libs/jquery/jquery.min.js' %}"></script>
+<script src="{% static 'libs/responsejs/response.min.js' %}"></script>
+<script src="{% static 'libs/loading-overlay/loadingoverlay.min.js' %}"></script>
+<script src="{% static 'libs/tether/js/tether.min.js' %}"></script>
+<script src="{% static 'libs/bootstrap/js/bootstrap.min.js' %}"></script>
+<script src="{% static 'libs/jscrollpane/jquery.jscrollpane.min.js' %}"></script>
+<script src="{% static 'libs/jscrollpane/jquery.mousewheel.js' %}"></script>
+<script src="{% static 'libs/flexibility/flexibility.js' %}"></script>
+<script src="{% static 'libs/noty/noty.min.js' %}"></script>
+<script src="{% static 'libs/velocity/velocity.min.js' %}"></script>
+<!-- END PAGE LEVEL PLUGINS -->
+
+<!-- BEGIN THEME LAYOUT SCRIPTS -->
+<script src="{% static 'assets/scripts/common.min.js' %}"></script>
+
+<!-- BEGIN PAGE LEVEL PLUGINS -->
+<script src="{% static 'libs/momentjs/moment-with-locales.min.js' %}"></script>
+<script src="{% static 'libs/bootstrap-daterange-picker/daterangepicker.js' %}"></script>
+<script type="application/javascript">
+(function ($) {
+    $(document).ready(function() {
+        $('.ks-daterange').daterangepicker();
+    });
+})(jQuery);
+</script>
+<!-- DATA TABLES -->
+
+<script src="{% static 'libs/datatables-net/media/js/jquery.dataTables.min.js' %}"></script>
+<script src="{% static 'libs/datatables-net/media/js/dataTables.bootstrap4.min.js' %}"></script>
+<script src="{% static 'libs/select2/js/select2.min.js' %}"></script>
+<script type="application/javascript">
+(function ($) {
+    $(document).ready(function() {
+        $('#ks-datatable').DataTable({
+            "initComplete": function () {
+                $('.dataTables_wrapper select').select2({
+                    minimumResultsForSearch: Infinity
+                });
+            }
+        });
+    });
+})(jQuery);
+</script>
+<script type="text/javascript">
+
+
+        function initMap(myLatLng) {
+
+            var myLatLng = {lat: -25.2914631, lng: -57.5903441};
+            var center = new google.maps.LatLng(myLatLng);
+            var mapOptions = {
+                zoom: 13,
+                mapTypeId: google.maps.MapTypeId.ROADMAP,
+                center: center,
+                zoomControl: true,
+                zoomControlOptions: {
+                    style: google.maps.ZoomControlStyle.SMALL
+                },
+                mapTypeControl: false,
+                scaleControl: false,
+                scrollwheel: false,
+                streetViewControl: false,
+                draggable: true
+            };
+
+            var map = new google.maps.Map(document.getElementById('mapa'), mapOptions);
+            google.maps.event.trigger(map, 'resize');
+            map.setCenter(new google.maps.LatLng(myLatLng));
+        }
+
+        function moveMap(array){
+
+            var myLatLng = {lat: array[0].lat, lng: array[0].long};
+            var center = new google.maps.LatLng(myLatLng);
+            var mapOptions = {
+                zoom: 16,
+                mapTypeId: google.maps.MapTypeId.ROADMAP,
+                center: center,
+                zoomControl: true,
+                zoomControlOptions: {
+                    style: google.maps.ZoomControlStyle.SMALL
+                },
+                mapTypeControl: false,
+                scaleControl: false,
+                scrollwheel: false,
+                streetViewControl: false,
+                draggable: true
+            };
+            var map = new google.maps.Map(document.getElementById('mapa'), mapOptions);
+            if(array == undefined){
+                var myLatLng = {lat: -25.231628, lng: -57.5274707};
+                var center = new google.maps.LatLng(myLatLng);
+            }else{
+                var points = new google.maps.MVCArray();
+                var bounds = new google.maps.LatLngBounds();
+                for (var i = 0, len = array.length; i < len; i++) {
+                // Aca centramos y dibujamos el polygono
+                        points.push(new google.maps.LatLng(array[i].lat,array[i].long));
+                        bounds.extend(new google.maps.LatLng(array[i].lat,array[i].long));
+                }
+                var polylineOptions =   { path: points, strokeColor:"#0000008c", fillColor:"#000" }
+                var polygon = new google.maps.Polygon(polylineOptions);
+                polygon.setMap(map);
+                map.setCenter(bounds.getCenter());
+            }
+
+        }
+
+        $(document).on("click", ".open-mapa", function () {
+            var array = $(this).data('array');
+            moveMap(array);
+        });
+
+
+</script>
+    <script async defer
+        src="https://maps.googleapis.com/maps/api/js?key=AIzaSyC0Bz4yuEg89NpooiBw0Po1x64d96FtJwU&callback=initMap">
+    </script>
+
+{% endblock %}

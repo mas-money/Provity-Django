@@ -1,0 +1,309 @@
+{% extends "base.html" %}
+{% load staticfiles %}
+
+{% block contenido %}
+<div class="ks-dashboard-tabbed-sidebar-widgets">
+    <div class="row">
+        <div class="col-xl-4">
+            <div class="card ks-card-widget ks-widget-payment-total-amount ks-purple-light">
+                <h5 class="card-header">
+                    Total de Marcaciones
+
+                    <div class="dropdown ks-control">
+                        <a class="btn btn-link ks-no-text ks-no-arrow" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            <span class="ks-icon la la-ellipsis-h"></span>
+                        </a>
+                    </div>
+                </h5>
+                <div class="card-block">
+                    <div class="ks-payment-total-amount-item-icon-block">
+                        <span class="ks-icon la la-check ks-icon"></span>
+                    </div>
+
+                    <div class="ks-payment-total-amount-item-body">
+                        <div class="ks-payment-total-amount-item-amount">
+                            <span class="ks-amount">{{ marcantes_entrada }}</span>
+                        </div>
+                    </div>
+                    
+                </div>
+            </div>
+        </div>
+        <div class="col-xl-4">
+            <div class="card ks-card-widget ks-widget-payment-total-amount ks-green-light">
+                <h5 class="card-header">
+                    Total Colaboradores
+
+                    <div class="dropdown ks-control">
+                        <a class="btn btn-link ks-no-text ks-no-arrow" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            <span class="ks-icon la la-ellipsis-h"></span>
+                        </a>
+                    </div>
+                </h5>
+                <div class="card-block">
+                    <div class="ks-payment-total-amount-item-icon-block">
+                        <span class="la la-user ks-icon"></span>
+                    </div>
+
+                    <div class="ks-payment-total-amount-item-body">
+                        <div class="ks-payment-total-amount-item-amount">
+                            <span class="ks-amount">{{ usuarios.count }}</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-xl-4">
+            <div class="card ks-card-widget ks-widget-payment-total-amount ks-pink-light">
+                <h5 class="card-header">
+                    Total Adminstradores
+
+                    <div class="dropdown ks-control">
+                        <a class="btn btn-link ks-no-text ks-no-arrow" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            <span class="ks-icon la la-ellipsis-h"></span>
+                        </a>
+                    </div>
+                </h5>
+                <div class="card-block">
+                    <div class="ks-payment-total-amount-item-icon-block">
+                        <span class="la la-user-plus ks-icon"></span>
+                    </div>
+
+                    <div class="ks-payment-total-amount-item-body">
+                        <div class="ks-payment-total-amount-item-amount">
+                            <span class="ks-amount">23</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- MAPA EN VIVO -->
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="card ks-card-widget ks-payment-widget-table-and-map">
+                <h5 class="card-header">
+                    Mapa En Vivo
+                </h5>
+                <div class="card-block" style="padding:0px 50px !important;">
+                    <div class="row">
+                        <div class="col-md-3">
+                            <span class="badge ks-circle badge-success">Activo</span>  
+                        </div>
+                        <div class="col-md-3">
+                            <span class="badge ks-circle badge-danger">Pendiente de Conexión</span>
+                        </div>
+                        <div class="col-md-3">
+                            <span class="badge ks-circle badge-default">Inactivo</span>  
+                        </div>
+                    </div>
+                </div>
+                <div class="card-block">
+                    <div class="row">
+                        <div class="col-lg-12">
+                            <div id="mapa" data-height="284"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!--./ FIN MAPA EN VIVO -->
+
+    <!-- MARCACIONES RECIENTES -->
+    <div class="row">
+        <div class="col-lg-8">
+            <div class="card ks-card-widget ks-widget-table">
+                <h5 class="card-header">
+                    Marcaciones Recientes
+
+                    <div class="ks-controls">
+                        <a href="/marcaciones/" class="ks-control-link">Ver Todas</a>
+                    </div>
+                </h5>
+                <div class="card-block">
+                    <table class="table ks-payment-table-invoicing">
+                        <tr>
+                            <th width="1">#</th>
+                            <th>Nombre del Colaborador</th>
+                            <th>Fecha</th>
+                            <th>Hora</th>
+                            <th width="1">Estado</th>
+                        </tr>
+                        {% for marcacion in marcaciones %}
+                        <tr>
+                            <td>{{ forloop.counter }}</td>
+                            <td>{{ marcacion.usuario.first_name }} {{ marcacion.usuario.last_name }}</td>
+                            <td>{{ marcacion.fecha }}</td>
+                            <td>{{ marcacion.hora }}</td>
+                            <td>
+                                {% if marcacion.estado == "0" %}<span class="badge badge-success">Entrada</span>{% else %}<span class="badge badge-crusta">Salida</span> {% endif %}
+                            </td>
+                        </tr>
+                        {% endfor %}
+                    </table>
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-4">
+            <div class="card ks-card-widget ks-widget-tasks-statuses-progress">
+                <h5 class="card-header">
+                    Tareas
+                    <div class="ks-controls">
+                        <a href="#" class="ks-control-link">{% now 'F Y' %}</a>
+                    </div>
+                </h5>
+                <div class="card-block">
+                    <table class="tasks-statuses-progress-table">
+                        <tbody><tr>
+                            <td class="ks-progress-status">Total</td>
+                            <td width="1" class="ks-text-light ks-text-right">100</td>
+                        </tr>
+                        <tr>
+                            <td class="ks-progress-status">Pendientes</td>
+                            <td width="1" class="ks-text-light ks-text-right">21</td>
+                        </tr>
+                        <tr>
+                            <td class="ks-progress-status">Completadas</td>
+                            <td width="1" class="ks-text-light ks-text-right">79</td>
+                        </tr>
+                    </tbody></table>
+
+                    <hr>
+
+                    <div class="tasks-total-statuses-progress">
+                        <span class="ks-name">Progreso</span>
+                        <div class="progress ks-progress-xs">
+                            <div class="progress-bar bg-success" role="progressbar" style="width: 79%" aria-valuenow="50" aria-valuemin="0" aria-valuemax="100"></div>
+                        </div>
+                        <span class="ks-amount">79%</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!--./ FIN MARCACIONES RECIENTES -->
+
+
+                        <div class="row">
+                            <div class="col-xl-12">
+                                <div class="card ks-card-widget ks-widget-chart-orders">
+                                    <h5 class="card-header">
+                                        Indice de Productividad
+                                        <div class="ks-controls">
+                                            <a href="#" class="ks-control-link">{% now 'Y' %}</a>
+                                        </div>
+                                    </h5>
+                                    <div class="card-block">
+                                        <div class="ks-chart-orders-block"></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+</div>
+{% endblock %}
+
+{% block extra_scripts %}
+    <script async defer
+        src="https://maps.googleapis.com/maps/api/js?key=AIzaSyC0Bz4yuEg89NpooiBw0Po1x64d96FtJwU&callback=initMap">
+    </script>
+    <script>
+        function initMap() {
+
+            var myLatLng = {lat: -25.2914631, lng: -57.5903441};
+            var center = new google.maps.LatLng(myLatLng);
+            var mapOptions = {
+                zoom: 13,
+                mapTypeId: google.maps.MapTypeId.ROADMAP,
+                center: center,
+                zoomControl: true,
+                zoomControlOptions: {
+                    style: google.maps.ZoomControlStyle.SMALL
+                },
+                mapTypeControl: false,
+                scaleControl: false,
+                scrollwheel: false,
+                streetViewControl: false,
+                draggable: true
+            };
+
+            var map = new google.maps.Map(document.getElementById('mapa'), mapOptions);
+            google.maps.event.trigger(map, 'resize');
+            map.setCenter(new google.maps.LatLng(myLatLng));
+
+            $.ajax({
+                    headers: {
+                      'Accept': 'application/json',
+                      'Content-Type': 'application/json'
+                    },
+                    url:   '/core/api/live/track/', //archivo que recibe la peticion
+                    contentType: "application/json; charset=utf-8",
+                    type:  'GET', //método de envio
+                    success:  function (response) {
+                        console.log(response);
+                        var array       = response;
+                        var options     = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric',
+                                            hour: 'numeric', minute: 'numeric', second: 'numeric' };
+
+                        array.forEach(function(element) {
+                            console.log(parseFloat(element.latitud));
+                            console.log(parseFloat(element.longitud));
+                            var contentString = 
+                                '<div id="content">'+
+                                '<h4 id="firstHeading" class="firstHeading">'+element.user.first_name+' '+element.user.last_name+'</h4>'+
+                                '<div id="bodyContent">'+
+                                '<p>'+new Date(element.timestamp).toLocaleDateString("es-PY", options)+'</p>'+
+                                '</div>'+
+                                '</div>';
+
+                            var infowindow = new google.maps.InfoWindow({
+                              content: contentString
+                            });
+
+                            var myLatLng = {lat: parseFloat(element.latitud), lng: parseFloat(element.longitud)};
+                            var center = new google.maps.LatLng(myLatLng);
+                            var marker = new google.maps.Marker({
+                                map: map,
+                                position: center
+                            });
+
+                            marker.addListener('click', function() {
+                              infowindow.open(map, marker);
+                            });
+
+                        });
+                    }
+            });
+        }
+    </script>
+    <script type="application/javascript">
+(function ($) {
+    $(document).ready(function () {
+
+        c3.generate({
+            bindto: '.ks-chart-orders-block',
+            data: {
+                columns: [
+                    ['Julio', 150, 200, 220, 280, 400, 160, 260, 400, 300, 400, 500, 420, 500, 300, 200, 100, 400, 600, 300, 360, 600, 500, 300, 200, 100, 400, 600, 300, 360, 600, 120],
+                    ['Agosto', 350, 300,  200, 140, 200, 30, 200, 100, 400, 600, 300, 200, 100, 50, 200, 600, 300, 500, 30, 200, 320, 200, 100, 50, 200, 600, 300, 500, 30, 200, 320]
+                ],
+                colors: {
+                    'Julio': '#f88528',
+                    'Agosto': '#81c159'
+                }
+            },
+            point: {
+                r: 5
+            },
+            grid: {
+                y: {
+                    show: true
+                }
+            }
+        });
+    });
+})(jQuery);
+</script>
+{% endblock %}

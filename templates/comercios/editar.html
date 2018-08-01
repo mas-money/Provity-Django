@@ -1,0 +1,149 @@
+{% extends "base.html" %}
+{% load staticfiles %}
+
+{% block extra_estilos %}
+    <style type="text/css">
+        .mapa {
+            height: 350px !important;
+            width: 100% !important;
+            margin-bottom: 20px;
+        }
+    </style>
+{% endblock %}
+
+{% block body %}
+    <body class="ks-navbar-fixed ks-sidebar-default ks-sidebar-position-fixed ks-page-header-fixed ks-theme-primary ks-page-loading" onload="moveMap('{{comercio.array}}')"> 
+{% endblock %}
+
+{% block scrumb %}
+    <div class="ks-page-header">
+        <section class="ks-title-and-subtitle">
+            <div class="ks-title-block">
+                <h3 class="ks-main-title">Editar Área</h3>
+            </div>
+        </section>
+    </div>
+{% endblock %}
+
+
+{% block contenido %}
+<div class="ks-dashboard-tabbed-sidebar-widgets">
+    <div class="modal-dialog" style="max-width: 90% !important; margin-top: 5px !important;">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Agregar Área</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true" class="la la-map-marker"></span>
+                </button>
+            </div>
+            {{ form.errors }}
+            <div class="modal-body">
+                <div class="container-fluid">
+                    <form class="form-container" method="post">{% csrf_token %}
+                        <div class="form-group row">
+                            <label for="example-text-input" class="col-4 col-form-label">Nombre del Área</label>
+                            <div class="col-8">
+                                {{ form.nombre}}
+                            </div>
+                            <input style="display: none;" class="form-control" type="text" name="array" id="array">
+                        </div>
+                            <!-- <a class="btn btn-danger" onclick="removeLine()" style="color:white;">Borrar Lineas</a> -->
+                        <div class="alert alert-primary ks-solid-light ks-active-border" role="alert">
+                            Debe volver a trazar los puntos del área en el mapa.
+                        </div>
+                        <div id="map" class="mapa"></div>
+                        <div class="form-group row">
+                            <div class="text-center col-md-6">
+                                <button type="submit" class="btn btn-primary">Editar Área</button>
+                            </div>
+                            <div class="text-center col-md-6">
+                                <a onclick="eliminar_comercio('{{comercio.id}}')" class="btn btn-danger" style="color:white;">Eliminar Área</a>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block extra_scripts %}
+    <script async defer
+        src="https://maps.googleapis.com/maps/api/js?key=AIzaSyC0Bz4yuEg89NpooiBw0Po1x64d96FtJwU">
+    </script>
+    <script>
+
+        // This example adds a UI control allowing users to remove the polyline from the
+        // map.
+
+        var area;
+        var map;
+        function moveMap(arreglo){
+
+            var array = [];
+            console.log(JSON.parse(arreglo));
+            var arreglo = JSON.parse(arreglo);
+            // Variables para centrar el mapa
+            var bounds = new google.maps.LatLngBounds();
+            var i;
+            var points = new google.maps.MVCArray();
+            for (var i = 0, len = arreglo.length; i < len; i++) {
+                    // Aca centramos y dibujamos el polygono
+                    //points.push(new google.maps.LatLng(arreglo[i].lat,arreglo[i].long));
+                    bounds.extend(new google.maps.LatLng(arreglo[i].lat,arreglo[i].long));
+            }
+
+            var myLatLng = {lat: arreglo[0].lat, lng: arreglo[0].long};
+            var center = new google.maps.LatLng(myLatLng);
+            var mapOptions = {
+                zoom: 17,
+                mapTypeId: google.maps.MapTypeId.ROADMAP,
+                center: center,
+                zoomControl: true,
+                zoomControlOptions: {
+                    style: google.maps.ZoomControlStyle.SMALL
+                },
+                mapTypeControl: false,
+                scaleControl: false,
+                scrollwheel: false,
+                streetViewControl: false,
+                draggable: true
+            };
+            var map = new google.maps.Map(document.getElementById('map'), mapOptions);
+            map.setCenter(bounds.getCenter());
+
+            // Aca agregamos la nueva funcion de Polyline para que no continue agregando lineas al render
+            area = new google.maps.MVCArray();
+
+            var polylineOptions =   { path:area }
+            var polygon        =   new google.maps.Polygon(polylineOptions);
+            polygon.setMap(map);
+
+            map.addListener('click', function(e) {
+                var currentPath =   polygon.getPath();
+                currentPath.push(e.latLng);
+                array.push({'lat':e.latLng.lat(),'long':e.latLng.lng()});
+                console.log(array);
+                $('#array').val(JSON.stringify(array))
+            });
+        }
+
+        function removeLine() {
+            poligono.setMap(null);
+        }
+
+        function eliminar_comercio(id){
+            console.log(id);
+            window.location.href = "/comercios/eliminar/"+id;
+        }
+
+    </script>
+{% endblock %}
+
+
+
+
+
+
+
