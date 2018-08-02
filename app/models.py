@@ -30,7 +30,7 @@ class Marcacione(models.Model):
     estado = models.CharField(max_length=40, choices=ENTRADA_SALIDA, blank=True, null=True)
     latitud = models.CharField(max_length=200, blank=True, null=True)
     longitud = models.CharField(max_length=200, blank=True, null=True)
-    fecha = models.DateField(null=True, blank=True, input_formats=['%d/%m/%Y'])
+    fecha = models.DateField(null=True, blank=True)
     hora = models.CharField(max_length=100,null=True, blank=True)
     observaciones = models.CharField(max_length=150, null=True, blank=True)
     device_id = models.CharField(max_length=200, null=True, blank=True)
