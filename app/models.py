@@ -39,12 +39,12 @@ class Marcacione(models.Model):
 	
     def __str__(self):
         return str(self.usuario)
-        
+    
     def save(self, *args, **kwargs):
         v_fecha = str(self.fecha)
         self.fecha = datetime.strptime(v_fecha,"%d/%m/%Y")
         super(Marcacione, self).save(*args, **kwargs)
-
+    
 
 
 class Track(models.Model):
