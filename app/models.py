@@ -20,6 +20,7 @@ class Usuario(models.Model):
     sexo = models.CharField(max_length=40, choices=SEXO, blank=True, null=True)
     legajo = models.CharField(max_length=40, blank=True, null=True)
     comercios = models.ManyToManyField(Comercio)
+    avatar = models.ImageField(default='', blank=False, null=False)
     	
     def __str__(self):
         return str(self.usuario)
