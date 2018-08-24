@@ -1,0 +1,244 @@
+{% extends "base.html" %}
+{% load staticfiles %}
+
+{% block extra_estilos %}
+    <link rel="stylesheet" type="text/css" href="{% static 'libs/datatables-net/media/css/dataTables.bootstrap4.min.css' %}"> <!-- original -->
+    <link rel="stylesheet" type="text/css" href="{% static 'assets/styles/libs/datatables-net/datatables.min.css' %}"> <!-- customization -->
+    <link rel="stylesheet" type="text/css" href="{% static 'libs/select2/css/select2.min.css' %}"> <!-- Original -->
+    <link rel="stylesheet" type="text/css" href="{% static 'assets/styles/libs/select2/select2.min.css' %}"> <!-- Customization -->
+{% endblock %}
+
+{% block menu %}
+{% endblock %}
+
+{% block scrumb %}
+{% endblock %}
+
+{% block contenido %}
+    <div class="ks-nav-body">
+        <div class="ks-user-list-view-header-block">
+            <h4 class="ks-user-list-view-header-block-name">
+                Designers
+
+                <span class="ks-user-list-view-header-block-amount">
+                    <span class="ks-icon la la-users"></span>
+                    <span>5 candidates</span>
+                </span>
+            </h4>
+            <div class="ks-user-list-view-header-control">
+                <div class="btn btn-success">Add Member</div>
+            </div>
+        </div>
+        <div class="ks-user-list-view-grid">
+            <div class="row">
+                <div class="col-xl-4">
+                    <div class="card ks-crm-grid-view-user-card">
+                        <div class="card-block">
+                            <img src="assets/img/avatars/avatar-1.jpg" alt="" class="ks-avatar" width="90" height="90">
+                            <span class="ks-crm-grid-view-user-card-name">Alex Frolov</span>
+                            <span class="ks-crm-grid-view-user-card-status">In discussion</span>
+
+                            <div class="ks-crm-grid-view-user-card-info">
+                                <div class="ks-crm-grid-view-user-card-info-imported-from">
+                                    <span class="ks-icon la la-github"></span> Imported from <a href="">Github</a>
+                                </div>
+                                <div class="ks-crm-grid-view-user-card-info-created-by">
+                                    <span class="ks-icon la la-user"></span> Imported from <a href="">Github</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-xl-4">
+                    <div class="card ks-crm-grid-view-user-card">
+                        <div class="card-block">
+                            <img src="assets/img/avatars/avatar-2.jpg" alt="" class="ks-avatar" width="90" height="90">
+                            <span class="ks-crm-grid-view-user-card-name">Alex Frolov</span>
+                            <span class="ks-crm-grid-view-user-card-status">In discussion</span>
+
+                            <div class="ks-crm-grid-view-user-card-info">
+                                <div class="ks-crm-grid-view-user-card-info-imported-from">
+                                    <span class="ks-icon la la-github"></span> Imported from <a href="">Github</a>
+                                </div>
+                                <div class="ks-crm-grid-view-user-card-info-created-by">
+                                    <span class="ks-icon la la-user"></span> Imported from <a href="">Github</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-xl-4">
+                    <div class="card ks-crm-grid-view-user-card">
+                        <div class="card-block">
+                            <img src="assets/img/avatars/avatar-3.jpg" alt="" class="ks-avatar" width="90" height="90">
+                            <span class="ks-crm-grid-view-user-card-name">Alex Frolov</span>
+                            <span class="ks-crm-grid-view-user-card-status">In discussion</span>
+
+                            <div class="ks-crm-grid-view-user-card-info">
+                                <div class="ks-crm-grid-view-user-card-info-imported-from">
+                                    <span class="ks-icon la la-github"></span> Imported from <a href="">Github</a>
+                                </div>
+                                <div class="ks-crm-grid-view-user-card-info-created-by">
+                                    <span class="ks-icon la la-user"></span> Imported from <a href="">Github</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-xl-4">
+                    <div class="card ks-crm-grid-view-user-card">
+                        <div class="card-block">
+                            <img src="assets/img/avatars/avatar-4.jpg" alt="" class="ks-avatar" width="90" height="90">
+                            <span class="ks-crm-grid-view-user-card-name">Alex Frolov</span>
+                            <span class="ks-crm-grid-view-user-card-status">In discussion</span>
+
+                            <div class="ks-crm-grid-view-user-card-info">
+                                <div class="ks-crm-grid-view-user-card-info-imported-from">
+                                    <span class="ks-icon la la-github"></span> Imported from <a href="">Github</a>
+                                </div>
+                                <div class="ks-crm-grid-view-user-card-info-created-by">
+                                    <span class="ks-icon la la-user"></span> Imported from <a href="">Github</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-xl-4">
+                    <div class="card ks-crm-grid-view-user-card">
+                        <div class="card-block">
+                            <img src="assets/img/avatars/avatar-5.jpg" alt="" class="ks-avatar" width="90" height="90">
+                            <span class="ks-crm-grid-view-user-card-name">Alex Frolov</span>
+                            <span class="ks-crm-grid-view-user-card-status">In discussion</span>
+
+                            <div class="ks-crm-grid-view-user-card-info">
+                                <div class="ks-crm-grid-view-user-card-info-imported-from">
+                                    <span class="ks-icon la la-github"></span> Imported from <a href="">Github</a>
+                                </div>
+                                <div class="ks-crm-grid-view-user-card-info-created-by">
+                                    <span class="ks-icon la la-user"></span> Imported from <a href="">Github</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-xl-4">
+                    <div class="card ks-crm-grid-view-user-card">
+                        <div class="card-block">
+                            <img src="assets/img/avatars/avatar-6.jpg" alt="" class="ks-avatar" width="90" height="90">
+                            <span class="ks-crm-grid-view-user-card-name">Alex Frolov</span>
+                            <span class="ks-crm-grid-view-user-card-status">In discussion</span>
+
+                            <div class="ks-crm-grid-view-user-card-info">
+                                <div class="ks-crm-grid-view-user-card-info-imported-from">
+                                    <span class="ks-icon la la-github"></span> Imported from <a href="">Github</a>
+                                </div>
+                                <div class="ks-crm-grid-view-user-card-info-created-by">
+                                    <span class="ks-icon la la-user"></span> Imported from <a href="">Github</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-xl-4">
+                    <div class="card ks-crm-grid-view-user-card">
+                        <div class="card-block">
+                            <img src="assets/img/avatars/avatar-7.jpg" alt="" class="ks-avatar" width="90" height="90">
+                            <span class="ks-crm-grid-view-user-card-name">Alex Frolov</span>
+                            <span class="ks-crm-grid-view-user-card-status">In discussion</span>
+
+                            <div class="ks-crm-grid-view-user-card-info">
+                                <div class="ks-crm-grid-view-user-card-info-imported-from">
+                                    <span class="ks-icon la la-github"></span> Imported from <a href="">Github</a>
+                                </div>
+                                <div class="ks-crm-grid-view-user-card-info-created-by">
+                                    <span class="ks-icon la la-user"></span> Imported from <a href="">Github</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-xl-4">
+                    <div class="card ks-crm-grid-view-user-card">
+                        <div class="card-block">
+                            <img src="assets/img/avatars/avatar-8.jpg" alt="" class="ks-avatar" width="90" height="90">
+                            <span class="ks-crm-grid-view-user-card-name">Alex Frolov</span>
+                            <span class="ks-crm-grid-view-user-card-status">In discussion</span>
+
+                            <div class="ks-crm-grid-view-user-card-info">
+                                <div class="ks-crm-grid-view-user-card-info-imported-from">
+                                    <span class="ks-icon la la-github"></span> Imported from <a href="">Github</a>
+                                </div>
+                                <div class="ks-crm-grid-view-user-card-info-created-by">
+                                    <span class="ks-icon la la-user"></span> Imported from <a href="">Github</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-xl-4">
+                    <div class="card ks-crm-grid-view-user-card">
+                        <div class="card-block">
+                            <img src="assets/img/avatars/avatar-9.jpg" alt="" class="ks-avatar" width="90" height="90">
+                            <span class="ks-crm-grid-view-user-card-name">Alex Frolov</span>
+                            <span class="ks-crm-grid-view-user-card-status">In discussion</span>
+
+                            <div class="ks-crm-grid-view-user-card-info">
+                                <div class="ks-crm-grid-view-user-card-info-imported-from">
+                                    <span class="ks-icon la la-github"></span> Imported from <a href="">Github</a>
+                                </div>
+                                <div class="ks-crm-grid-view-user-card-info-created-by">
+                                    <span class="ks-icon la la-user"></span> Imported from <a href="">Github</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
+
+
+{% block scripts %}
+{% endblock %}
+
+{% block extra_scripts %}
+
+<!-- BEGIN PAGE LEVEL PLUGINS -->
+<script src="{% static 'libs/jquery/jquery.min.js' %}"></script>
+<script src="{% static 'libs/responsejs/response.min.js' %}"></script>
+<script src="{% static 'libs/loading-overlay/loadingoverlay.min.js' %}"></script>
+<script src="{% static 'libs/tether/js/tether.min.js' %}"></script>
+<script src="{% static 'libs/bootstrap/js/bootstrap.min.js' %}"></script>
+<script src="{% static 'libs/jscrollpane/jquery.jscrollpane.min.js' %}"></script>
+<script src="{% static 'libs/jscrollpane/jquery.mousewheel.js' %}"></script>
+<script src="{% static 'libs/flexibility/flexibility.js' %}"></script>
+<script src="{% static 'libs/noty/noty.min.js' %}"></script>
+<script src="{% static 'libs/velocity/velocity.min.js' %}"></script>
+<!-- END PAGE LEVEL PLUGINS -->
+
+<!-- BEGIN THEME LAYOUT SCRIPTS -->
+<script src="{% static 'assets/scripts/common.min.js' %}"></script>
+<!-- END THEME LAYOUT SCRIPTS -->
+
+<script src="{% static 'libs/datatables-net/media/js/jquery.dataTables.min.js' %}"></script>
+<script src="{% static 'libs/datatables-net/media/js/dataTables.bootstrap4.min.js' %}"></script>
+<script src="{% static 'libs/select2/js/select2.min.js' %}"></script>
+<script type="application/javascript">
+(function ($) {
+    $(document).ready(function() {
+        $('#ks-datatable').DataTable({
+            "initComplete": function () {
+                $('.dataTables_wrapper select').select2({
+                    minimumResultsForSearch: Infinity
+                });
+            }
+        });
+    });
+})(jQuery);
+</script>
+{% endblock %}

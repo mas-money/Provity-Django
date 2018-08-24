@@ -1,0 +1,1 @@
+tenant = Client(domain_url='localhost',schema_name='public',paid_until='2100-12-31',on_trial=True,razon_social='Prueba',ruc='111111',email='aaa@aaa.com',telefono='0987654',plan='1',tipo_empresa='1',cantidad_usuarios='10')

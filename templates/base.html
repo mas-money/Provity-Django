@@ -1,4 +1,5 @@
 {% load staticfiles %}
+{% load infocliente %}
 <!DOCTYPE html>
 <html lang="en">
 
@@ -87,8 +88,8 @@
                     <!-- BEGIN NAVBAR ACTION BUTTON -->
                     <div class="nav-item nav-link btn-action-block">
                         <a class="btn btn-danger" href="#">
-                            <span class="ks-action">InnovandoPy</span>
-                            <span class="ks-description">Periodo de Prueba</span>
+                            <span class="ks-action">{{ cliente.razon_social }}</span>
+                            <span class="ks-description">{% if cliente.on_trial == true %}Periodo de Prueba{% else %} {{ cliente.get_plan_display }} {% endif %}</span>
                         </a>
                     </div>
                     <!-- END NAVBAR ACTION BUTTON -->
@@ -167,9 +168,9 @@
                         <span>Colaboradores</span>
                     </a>
                     <div class="dropdown-menu">
-                        <a class="dropdown-item ks-active" href="/listado_repositores/">Listado</a>
-                        <a class="dropdown-item" href="/registrar_repositor/">Agregar Colaborador</a>
-                        <a class="dropdown-item" href="/registrar_admin/">Agregar Administrador</a>
+                        <a class="dropdown-item ks-active" href="/colaboradores/listado/">Listado</a>
+                        <a class="dropdown-item" href="/colaborador/add/">Agregar Colaborador</a>
+                        <a class="dropdown-item" href="/colaborador/admin/add/">Agregar Administrador</a>
                     </div>
                 </li>
                 <li class="nav-item dropdown">
@@ -178,8 +179,8 @@
                         <span>Áreas</span>
                     </a>
                     <div class="dropdown-menu">
-                        <a class="dropdown-item ks-active" href="/comercios/listado">Listado</a>
-                        <a class="dropdown-item" href="/comercios/add">Agregar Áreas</a>
+                        <a class="dropdown-item ks-active" href="/areas/listado">Listado</a>
+                        <a class="dropdown-item" href="/areas/add">Agregar Áreas</a>
                     </div>
                 </li>
 
@@ -212,7 +213,7 @@
                     </div>
                     <div class="ks-description">
                         <span class="ks-amount">{{ porcentaje }}%</span>
-                        <span class="ks-text">({{ usuarios.count }} de {{ limite_usuarios }})</span>
+                        <span class="ks-text">({{ usuarios.count }} de {{ cliente.cantidad_usuarios }})</span>
                     </div>
                 </div>
                 <div class="ks-sidebar-copyright">© {% now 'Y' %} Tecnodesign. Derechos Reservados</div>

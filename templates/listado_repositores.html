@@ -44,24 +44,24 @@
                                     <td>{{ repositor.usuario.first_name }}</td>
                                     <td>{{ repositor.usuario.last_name }}</td>
                                     <!-- <td>{{ repositor.jefe.usuario.first_name }} {{ repositor.jefe.usuario.last_name }}</td> -->
-                                    <td>{{ repositor.legajo }}</td>
+                                    <td>{{ repositor.ci }}</td>
                                     <td>
-                                        <a href="/editar_repositor/{{repositor.id}}" class="button btn btn-primary-outline" style="color: #25628F">
+                                        <a href="/colaborador/edit/{{repositor.id}}" class="button btn btn-primary-outline" style="color: #25628F">
                                             <span class="la la-edit ks-icon"></span>
                                             <span class="ks-text">Editar</span>
                                         </a>
-                                        <a href="/repositor/{{repositor.usuario_id}}" class="btn btn-info-outline" style="color: #42a5f5">
+                                        <a href="/colaborador/{{repositor.usuario_id}}" class="btn btn-info-outline" style="color: #42a5f5">
                                             <span class="la la-file-text-o ks-icon"></span>
                                             <span class="ks-text">Reportes</span>
                                         </a>
                                         
                                         {% if repositor.usuario.is_active %}
-                                        <a href="/inhabilitar_repositor/{{repositor.usuario_id}}" class="btn btn-danger" style="color: white">
+                                        <a href="/colaborador/out/{{repositor.usuario_id}}" class="btn btn-danger" style="color: white">
                                             <span class="la la-trash ks-icon"></span>
                                             <span class="ks-text">Inhabilitar</span>
                                         </a>
                                         {% else %}
-                                        <a href="/habilitar_repositor/{{repositor.usuario_id}}" class="btn btn-success" style="color: white">
+                                        <a href="/colaborador/in/{{repositor.usuario_id}}" class="btn btn-success" style="color: white">
                                             <span class="la la-trash ks-icon"></span>
                                             <span class="ks-text">Habilitar</span>
                                         </a>

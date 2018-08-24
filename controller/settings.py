@@ -26,41 +26,75 @@ SECRET_KEY = 'uaw1n!8^ck&_-6x3^o6=4+^ho4&9pybo=pj__k_e@-+w&l%2o9'
 DEBUG = True
 
 ALLOWED_HOSTS = ['*']
+
+CORS_ORIGIN_ALLOW_ALL=True
 SITE_ID = 1
 
 
 # Application definition
 
-INSTALLED_APPS = [
+SHARED_APPS = (
+    'tenant_schemas',  # mandatory, should always be before any django app
+    #'django_tenants',   # mandatory, should always be before any django app
+    'apps.clientes',    # you must list the app where your tenant model resides in
+
+    'django.contrib.contenttypes',
     'django.contrib.admin',
     'django.contrib.auth',
-    'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-	'app',
-	#API
+    # Para darle millares a los numeros del template
+    'django.contrib.humanize',
+    'django.contrib.sites',
+)
+
+TENANT_APPS = (
+    # The following Django contrib apps must be in TENANT_APPS
+    'django.contrib.contenttypes',
+    'django.contrib.admin',
+    'django.contrib.auth',
+    'django.contrib.sessions',
+    'django.contrib.messages',
+    'django.contrib.staticfiles',
+    # Para darle millares a los numeros del template
+    'django.contrib.humanize',
+    'django.contrib.sites',
+
+    # your tenant-specific apps
+    # App's
+    'apps.areas',
+    'apps.marcaciones',
+    'apps.tracking',
+    'apps.usuarios',
+    # App's de Terceros
+    #API
     'rest_framework',
     'rest_framework.authtoken',
     'rest_auth',
-    'django.contrib.sites',
+    'rest_auth.registration',
     'allauth',
     'allauth.account',
-    'rest_auth.registration',
-	#Cabeceras
+    #Cabeceras
     'corsheaders'
-]
+)
 
-MIDDLEWARE_CLASSES = [
+INSTALLED_APPS = list(SHARED_APPS) + [app for app in TENANT_APPS if app not in SHARED_APPS]
+
+MIDDLEWARE = [
+    'tenant_schemas.middleware.TenantMiddleware',
     'django.middleware.security.SecurityMiddleware',
-    #'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'corsheaders.middleware.CorsMiddleware',
     'django.middleware.common.CommonMiddleware',
+    'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
-    'django.contrib.auth.middleware.SessionAuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    # Custom middleware 
+    # Verificamos si ya eligio el tipo de empresa y si la cuenta esta vigente
+    #'apps.clientes.middleware.tipo_empresa',
+    #'apps.clientes.middleware.fecha_vencimiento',
 ]
 
 ROOT_URLCONF = 'controller.urls'
@@ -77,6 +111,7 @@ TEMPLATES = [
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
                 'django.template.context_processors.media',
+                'apps.clientes.base.variables',
             ],
         },
     },
@@ -94,7 +129,7 @@ DATABASES = {
         'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
     }
 }
-'''
+
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
@@ -109,15 +144,24 @@ DATABASES = {
 # Base de Datos Local (Postgres)
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'NAME': 'pollpar',
-        'USER': 'postgres',
-        'PASSWORD': 'root',
-        'HOST': 'localhost',
-        'PORT': '',
+        'ENGINE': 'tenant_schemas.postgresql_backend',
+        'NAME': 'provity3',
+        'USER':'postgres',
+        'PASSWORD':'tecnodesign',
+        'HOST':'localhost',
+        'PORT':5432,
     }
 }
-'''
+
+DATABASE_ROUTERS = (
+    'tenant_schemas.routers.TenantSyncRouter',
+)
+
+TENANT_MODEL = "clientes.Client" # app.Model
+
+#TENANT_DOMAIN_MODEL = "clientes.Domain"  # app.Model
+
+PUBLIC_SCHEMA_URLCONF = 'apps.clientes.urls'
 
 # Password validation
 # https://docs.djangoproject.com/en/1.9/ref/settings/#auth-password-validators
@@ -193,3 +237,28 @@ CORS_ORIGIN_WHITELIST = (
 	'https://provity.com.py',
 )
 
+
+
+LOGGING = {
+    'version': 1,
+    'disable_existing_loggers': False,
+    'filters': {
+        'require_debug_false': {
+            '()': 'django.utils.log.RequireDebugFalse'
+        }
+    },
+    'handlers': {
+        'mail_admins': {
+            'level': 'ERROR',
+            'filters': ['require_debug_false'],
+            'class': 'django.utils.log.AdminEmailHandler'
+        }
+    },
+    'loggers': {
+        'django.request': {
+            'handlers': ['mail_admins'],
+            'level': 'ERROR',
+            'propagate': True,
+        },
+    }
+}

@@ -31,7 +31,7 @@
     <div class="modal-dialog" style="max-width: 90% !important; margin-top: 5px !important;">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title">Agregar Área</h5>
+                <h5 class="modal-title">Editar Área</h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true" class="la la-map-marker"></span>
                 </button>
@@ -69,6 +69,9 @@
 {% endblock %}
 
 {% block extra_scripts %}
+    <!-- Sweet Alert -->
+    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+    <!-- Fin Sweet Alert -->
     <script async defer
         src="https://maps.googleapis.com/maps/api/js?key=AIzaSyC0Bz4yuEg89NpooiBw0Po1x64d96FtJwU">
     </script>
@@ -134,8 +137,18 @@
         }
 
         function eliminar_comercio(id){
-            console.log(id);
-            window.location.href = "/comercios/eliminar/"+id;
+            swal({
+              title: "Estas seguro?",
+              text: "Una vez eliminada el área ya no se podrá recuperar.",
+              icon: "warning",
+              buttons: ["Cancelar", "Eliminar"],
+              dangerMode: true,
+            })
+            .then((willDelete) => {
+              if (willDelete) {
+                window.location.href = "/areas/delete/"+id;
+              }
+            });
         }
 
     </script>

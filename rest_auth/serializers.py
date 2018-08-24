@@ -11,7 +11,7 @@ from .models import TokenModel
 from rest_framework import serializers, exceptions
 from rest_framework.exceptions import ValidationError
 
-from app.models import Usuario
+from apps.usuarios.models import Usuario
 
 # Get the UserModel
 UserModel = get_user_model()
