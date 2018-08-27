@@ -5,8 +5,8 @@
             <div class="ks-page-header">
                 <section class="ks-title-and-subtitle">
                     <div class="ks-title-block">
-                        <h3 class="ks-main-title">Agregar Administrador</h3>
-                        <div class="ks-sub-title">El Admin agregado tendra acceso al panel de Provity.</div>
+                        <h3 class="ks-main-title">Agregar Supervisor</h3>
+                        <div class="ks-sub-title">El Supervisor agregado tendra acceso al panel de Provity.</div>
                     </div>
                 </section>
             </div>
@@ -17,7 +17,7 @@
                         <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title">Agregar Administrador</h5>
+                <h5 class="modal-title">Agregar Supervisor</h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true" class="la la-user"></span>
                 </button>
@@ -45,12 +45,6 @@
                             </div>
                         </div>
                         <div class="form-group row">
-                            <label for="example-url-input" class="col-4 col-form-label">C.I. N°</label>
-                            <div class="col-8">
-                                <input class="form-control" type="text" name="legajo" value="{{ form.legajo.value | default:''}}" id="example-url-input">
-                            </div>
-                        </div>
-                        <div class="form-group row">
                             <label for="example-tel-input" class="col-4 col-form-label">Nombre de Usuario</label>
                             <div class="col-8">
                                 <input id="username" onkeyup="reply()" class="form-control" type="text" name="username" value="{{ form.username.value | default:''}}" id="example-username-input">
@@ -66,7 +60,7 @@
                         </div>
                         <div class="form-group row">
                             <div class="text-center col-sm-12">
-                                <button type="submit" class="btn btn-primary">Registrar Administrador</button>
+                                <button type="submit" class="btn btn-primary">Registrar Supervisor</button>
                             </div>
                         </div>
                     </form>

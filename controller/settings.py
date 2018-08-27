@@ -66,6 +66,7 @@ TENANT_APPS = (
     'apps.areas',
     'apps.marcaciones',
     'apps.tracking',
+    'apps.reportes',
     'apps.usuarios',
     # App's de Terceros
     #API
@@ -75,6 +76,7 @@ TENANT_APPS = (
     'rest_auth.registration',
     'allauth',
     'allauth.account',
+    'allauth.socialaccount',
     #Cabeceras
     'corsheaders'
 )
@@ -129,18 +131,6 @@ DATABASES = {
         'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
     }
 }
-
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'NAME': 'provity',
-        'USER': 'provity',
-        'PASSWORD': '10vecesmejores',
-        'HOST': 'localhost',
-        'PORT': '',
-    }
-}
-'''
 # Base de Datos Local (Postgres)
 DATABASES = {
     'default': {
@@ -152,6 +142,20 @@ DATABASES = {
         'PORT':5432,
     }
 }
+'''
+
+# Base de Datos Servidor (provity.com.py)
+DATABASES = {
+    'default': {
+        'ENGINE': 'tenant_schemas.postgresql_backend',
+        'NAME': 'provity_tenant',
+        'USER':'provity',
+        'PASSWORD':'10vecesmejores',
+        'HOST':'localhost',
+        'PORT':5432,
+    }
+}
+
 
 DATABASE_ROUTERS = (
     'tenant_schemas.routers.TenantSyncRouter',

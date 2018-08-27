@@ -13,7 +13,7 @@ class Marcaciones(models.Model):
     longitud        = models.CharField(max_length=200, blank=True, null=True)
     fecha           = models.DateField(null=True, blank=True)
     hora            = models.CharField(max_length=100,null=True, blank=True)
-    observaciones   = models.CharField(max_length=150, null=True, blank=True)
+    observaciones   = models.CharField(max_length=300, null=True, blank=True)
     device_id       = models.CharField(max_length=200, null=True, blank=True)
     timestamp       = models.DateTimeField(auto_now_add=True, auto_now=False)
 	
@@ -25,6 +25,17 @@ class Marcaciones(models.Model):
         self.fecha = datetime.strptime(v_fecha,"%d/%m/%Y")
         super(Marcacione, self).save(*args, **kwargs)
     '''
+    def save(self, *args, **kwargs):
+        print("Chequeamos si es salida o entrada")
+        print(self)
+        if self.usuario:
+            marcacion_previa = Marcaciones.objects.filter(usuario=self.usuario).latest('id')
+            print(marcacion_previa)
+            if(marcacion_previa.estado == '0'):
+                self.estado = '1'
+            else:
+                self.estado = '0'
+        super(Marcaciones, self).save(*args, **kwargs)
 
 class Rondas(models.Model):
     usuario         = models.ForeignKey(User, on_delete=models.CASCADE)
@@ -32,7 +43,7 @@ class Rondas(models.Model):
     longitud        = models.CharField(max_length=200, blank=True, null=True)
     fecha           = models.DateField(null=True, blank=True)
     hora            = models.CharField(max_length=100,null=True, blank=True)
-    observaciones   = models.CharField(max_length=150, null=True, blank=True)
+    observaciones   = models.CharField(max_length=300, null=True, blank=True)
     device_id       = models.CharField(max_length=200, null=True, blank=True)
     timestamp       = models.DateTimeField(auto_now_add=True, auto_now=False)
 	

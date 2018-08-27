@@ -12,6 +12,13 @@ class RegistroRepositorForm (forms.Form):
     username = forms.CharField(max_length=100, required=True)
 
 
+class RegistroSupervisorForm (forms.Form):
+    nombres = forms.CharField(max_length=100,required=True)
+    apellidos = forms.CharField(max_length=100, required=True)
+    email = forms.CharField(required= True)
+    username = forms.CharField(max_length=100, required=True)
+
+
 class EditarRepositorForm (forms.ModelForm):
 
     class Meta:

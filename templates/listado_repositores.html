@@ -1,5 +1,6 @@
 {% extends "base.html" %}
 {% load staticfiles %}
+{% load humanize %}
 
 {% block extra_estilos %}
     <link rel="stylesheet" type="text/css" href="{% static 'libs/datatables-net/media/css/dataTables.bootstrap4.min.css' %}"> <!-- original -->
@@ -23,51 +24,55 @@
                         <div class="container-fluid">
                             <table id="ks-datatable" class="table table-striped table-bordered" width="100%">
                                 <thead>
-                                <tr>
-                                    <th>Nombres</th>
-                                    <th>Apellidos</th>
-                                    <th>C.I.</th>
-                                    <th>Acciones</th>
-                                </tr>
+                                    <tr>
+                                        <th>Nombres</th>
+                                        <th>Apellidos</th>
+                                        <th>C.I.</th>
+                                        {% if supervisores != '' %}<th>Supervisor</th>{% endif %}
+                                        <th>Acciones</th>
+                                    </tr>
                                 </thead>
                                 <tfoot>
-                                <tr>
-                                    <th>Nombres</th>
-                                    <th>Apellidos</th>
-                                    <th>C.I.</th>
-                                    <th>Acciones</th>
-                                </tr>
+                                    <tr>
+                                        <th>Nombres</th>
+                                        <th>Apellidos</th>
+                                        <th>C.I.</th>
+                                        {% if supervisores != '' %}<th>Supervisor</th>{% endif %}
+                                        <th>Acciones</th>
+                                    </tr>
                                 </tfoot>
                                 <tbody>
                                 {% for repositor in repositores %}
-                                <tr>
-                                    <td>{{ repositor.usuario.first_name }}</td>
-                                    <td>{{ repositor.usuario.last_name }}</td>
-                                    <!-- <td>{{ repositor.jefe.usuario.first_name }} {{ repositor.jefe.usuario.last_name }}</td> -->
-                                    <td>{{ repositor.ci }}</td>
-                                    <td>
-                                        <a href="/colaborador/edit/{{repositor.id}}" class="button btn btn-primary-outline" style="color: #25628F">
-                                            <span class="la la-edit ks-icon"></span>
-                                            <span class="ks-text">Editar</span>
-                                        </a>
-                                        <a href="/colaborador/{{repositor.usuario_id}}" class="btn btn-info-outline" style="color: #42a5f5">
-                                            <span class="la la-file-text-o ks-icon"></span>
-                                            <span class="ks-text">Reportes</span>
-                                        </a>
-                                        
-                                        {% if repositor.usuario.is_active %}
-                                        <a href="/colaborador/out/{{repositor.usuario_id}}" class="btn btn-danger" style="color: white">
-                                            <span class="la la-trash ks-icon"></span>
-                                            <span class="ks-text">Inhabilitar</span>
-                                        </a>
-                                        {% else %}
-                                        <a href="/colaborador/in/{{repositor.usuario_id}}" class="btn btn-success" style="color: white">
-                                            <span class="la la-trash ks-icon"></span>
-                                            <span class="ks-text">Habilitar</span>
-                                        </a>
+                                    <tr> 
+                                        <td> {{ repositor.usuario.first_name }} </td>
+                                        <td> {{ repositor.usuario.last_name }} </td>]
+                                        <td> {{ repositor.ci | intcomma }} </td>
+                                        {% if supervisores != '' %}
+                                            <td> {{ repositor.supervisor.user.first_name | default:'-' }} {{ repositor.supervisor.user.last_name }} </td>
                                         {% endif %}
-                                    </td>
-                                </tr>
+                                        <td>
+                                            <a href="/colaborador/edit/{{repositor.id}}" class="button btn btn-primary-outline" style="color: #25628F">
+                                                <span class="la la-edit ks-icon"></span>
+                                                <span class="ks-text">Editar</span>
+                                            </a>
+                                            <a href="/colaborador/{{repositor.usuario_id}}" class="btn btn-info-outline" style="color: #42a5f5">
+                                                <span class="la la-file-text-o ks-icon"></span>
+                                                <span class="ks-text">Reportes</span>
+                                            </a>
+                                            
+                                            {% if repositor.usuario.is_active %}
+                                            <a href="/colaborador/out/{{repositor.usuario_id}}" class="btn btn-danger" style="color: white">
+                                                <span class="la la-trash ks-icon"></span>
+                                                <span class="ks-text">Inhabilitar</span>
+                                            </a>
+                                            {% else %}
+                                            <a href="/colaborador/in/{{repositor.usuario_id}}" class="btn btn-success" style="color: white">
+                                                <span class="la la-trash ks-icon"></span>
+                                                <span class="ks-text">Habilitar</span>
+                                            </a>
+                                            {% endif %}
+                                        </td>
+                                    </tr>
                                 {% endfor %}
                                 </tbody>
                             </table>

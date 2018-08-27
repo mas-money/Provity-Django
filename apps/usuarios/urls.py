@@ -11,7 +11,7 @@ urlpatterns = [
     url(r'^caducado/', views.tipo_empresa, name='caducado'),
     # Colaboradores
     url(r'^colaborador/add/', views.registrar_repositor),
-    url(r'^colaborador/admin/add/', views.registrar_admin),
+    url(r'^colaborador/admin/add/', views.registrar_supervisor),
     url(r'^colaborador/edit/(?P<usuario>.+)/$', views.editar_repositor),
     url(r'^colaborador/out/(?P<usuario>.+)/$', views.inhabilitar_repositor),
     url(r'^colaborador/in/(?P<usuario>.+)/$', views.habilitar_repositor),

@@ -7,6 +7,7 @@ from apps.areas.models import *
 from apps.marcaciones.models import *
 from apps.tracking.models import *
 from apps.usuarios.models import *
+from apps.reportes.models import *
 
 from rest_framework import permissions, authentication
 from rest_framework.views import APIView
@@ -85,6 +86,10 @@ class LiveTrackViewSet(ModelViewSet):
     queryset = Track.objects.all().order_by('-id')
     permission_classes=(UserPermissionsObj,)
 
+class ReportesViewSet(ModelViewSet):
+    serializer_class = ReporteSerializer
+    queryset = Reporte.objects.all().order_by('-id')
+    permission_classes=(IsAuthenticated,UserPermissionsObj)
 
 
 

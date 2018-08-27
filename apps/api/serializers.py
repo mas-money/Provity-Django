@@ -8,13 +8,14 @@ from apps.areas.models import *
 from apps.marcaciones.models import *
 from apps.tracking.models import *
 from apps.usuarios.models import *
+from apps.reportes.models import *
 
 
 
 class MarcacioneSerializer(ModelSerializer):
     class Meta:
         model = Marcaciones
-        fields = ('usuario','lugar','latitud','longitud','fecha','hora','observaciones','estado','device_id','zona')
+        fields = ('usuario','latitud','longitud','fecha','hora','observaciones','estado','device_id',)
         
 class UltimaMarcacionSerializer(ModelSerializer):
     class Meta:
@@ -41,3 +42,17 @@ class ComerciosSerializer(serializers.ModelSerializer):
     class Meta:
         model = Area
         fields = ('id','nombre','array')
+ 
+class ReporteSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Reporte
+        fields = ('usuario','texto','timestamp')
+
+
+
+
+
+
+
+
+

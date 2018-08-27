@@ -65,9 +65,21 @@ def index(request):
     # marcantes_salida = Marcacione.objects.filter(fecha=hoy,estado="1").distinct('usuario').count()
     marcaciones= Marcaciones.objects.all().order_by('-id')[:10]
     marcaciones_todas= Marcaciones.objects.all().count()
-    usuarios = User.objects.filter(is_active=True,is_superuser=False, is_staff=False)
+    # Chequeamos si el usuario actual es un supervisor
+    usuario_actual = request.user
+    try:
+        sup = Supervisor.objects.get(user=usuario_actual)
+        print("SUPERVISOR :"+str(sup))
+    except:
+        sup = ''
+        print("SUPERVISOR : NO ES")
+    if(sup == ''):
+        usuarios   = Usuario.objects.all()
+    else:
+        usuarios   = Usuario.objects.filter(supervisor = sup)
+    supervisores= Supervisor.objects.all().count()
     return render(request, 'index.html',{'marcaciones':marcaciones,'marcaciones_todas':marcaciones_todas,'usuarios':usuarios,
-                                                'marcantes_entrada':marcantes_entrada,
+                                                'marcantes_entrada':marcantes_entrada,'supervisores':supervisores,
                                                 'tracks':tracks })
 
 
@@ -85,10 +97,16 @@ def registrar_repositor(request):
             new_user.first_name = form.cleaned_data['nombres']
             new_user.last_name = form.cleaned_data['apellidos']
             new_user.save()
-            #jefe_supermercados = request.POST.get('jefe_supermercado')
-            #Obtenemos el id del usuario para crear su perfil
-            usuario1= User.objects.latest('id')
-            nuevo_personal = Usuario.objects.create(usuario=usuario1,ci=form.cleaned_data['legajo'])
+            # Chequeamos si el usuario actual es un supervisor
+            usuario_actual = request.user
+            try:
+                sup = Supervisor.objects.get(user=usuario_actual)
+                nuevo_personal = Usuario.objects.create(usuario=new_user,ci=form.cleaned_data['legajo'], supervisor = sup)
+                print("SUPERVISOR :"+str(sup))
+            except:
+                sup = ''
+                print("SUPERVISOR : NO ES")
+                nuevo_personal = Usuario.objects.create(usuario=new_user,ci=form.cleaned_data['legajo'])
             return redirect('/colaboradores/listado/')
         else:
             return render(request,'registrar_admin.html',{'form':form})
@@ -98,8 +116,21 @@ def registrar_repositor(request):
 
 @login_required(None,'login','/login/')
 def listado_repositores(request):
-    colaboradores = Usuario.objects.all()
-    return render(request, 'listado_repositores.html',{'repositores':colaboradores})
+    # Chequeamos si el usuario actual es un supervisor
+    usuario_actual = request.user
+    try:
+        sup = Supervisor.objects.get(user=usuario_actual)
+        print("SUPERVISOR :"+str(sup))
+    except:
+        sup = ''
+        print("SUPERVISOR : NO ES")
+    if(sup == ''):
+        colaboradores   = Usuario.objects.all()
+        supervisores    = Supervisor.objects.all() 
+    else:
+        colaboradores   = Usuario.objects.filter(supervisor = sup)
+        supervisores    =  ''
+    return render(request, 'listado_repositores.html',{'repositores':colaboradores,'supervisores':supervisores})
 
 @login_required(None,'login','/login/')
 @csrf_protect
@@ -187,9 +218,9 @@ def habilitar_repositor(request,usuario):
 @login_required(None,'login','/login/') 
 @csrf_protect
 @ensure_csrf_cookie 
-def registrar_admin(request):
+def registrar_supervisor(request):
     if request.method == "POST":
-        form = RegistroRepositorForm(request.POST)
+        form = RegistroSupervisorForm(request.POST)
         if form.is_valid():
             new_user = User.objects.create_user(form.cleaned_data['username'], (form.cleaned_data['email'] or "controller@tecnodesign.com.py"), form.cleaned_data['username'])
             print(new_user.id)
@@ -197,17 +228,14 @@ def registrar_admin(request):
             new_user.last_name = form.cleaned_data['apellidos']
             new_user.is_staff = True
             new_user.save()
-            #jefe_supermercados = request.POST.get('jefe_supermercado')
-            #Obtenemos el id del usuario para crear su perfil
-            usuario1= User.objects.latest('id')
-            nuevo_personal = Usuario.objects.create(usuario=usuario1,legajo=form.cleaned_data['legajo'])
+            nuevo_personal = Supervisor.objects.create(user=new_user)
             return redirect('/colaboradores/listado/')
         else:
-            return render(request,'registrar_admin.html',{'form':form})
+            return render(request,'registrar_supervisor.html',{'form':form})
     else:
-        form = RegistroRepositorForm()
+        form = RegistroSupervisorForm()
         
-    return render(request, 'registrar_admin.html',{'form':form})
+    return render(request, 'registrar_supervisor.html',{'form':form})
 
 
 

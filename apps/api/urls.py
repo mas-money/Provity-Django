@@ -11,6 +11,7 @@ router.register(r'live/track',LiveTrackViewSet,base_name='live_track')
 router.register(r'ultimamarcacion',LastCheckViewSet,base_name='last')
 router.register(r'usuario', UserView, 'usuario')
 router.register(r'comercios', ComerciosView, 'comercios')
+router.register(r'reporte',ReportesViewSet,base_name='reportes')
 
 urlpatterns = [
     url(r'^api/',include(router.urls)),

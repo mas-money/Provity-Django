@@ -1,7 +1,12 @@
 env
 *.pyc
 __ pycache __
-app/migrations
+apps/areas/migrations
+apps/clientes/migrations
+apps/marcaciones/migrations
+apps/reportes/migrations
+apps/tracking/migrations
+apps/usuarios/migrations
 .DS_Store
 media
 db.sqlite3
