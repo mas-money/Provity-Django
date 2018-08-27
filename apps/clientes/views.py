@@ -17,7 +17,7 @@ def registrar(request):
 	if request.method == "POST":
 		ruc  			= request.POST.get('ruc')
 		razon_social    = request.POST.get('razon_social')
-		dominio 		= str(request.POST.get('url')) + ".localhost"
+		dominio 		= str(request.POST.get('url')) + ".provity.com.py"
 		schema_data    	= request.POST.get('schema_data')
 		telefono    	= request.POST.get('telefono')
 		email   		= request.POST.get('email')
@@ -63,7 +63,7 @@ def registrar(request):
 def buscar_url(request, url):
     search_text = url
     if search_text is not None and search_text != u"":
-        search_text = url + ".localhost"
+        search_text = url + ".provity.com.py"
         data = Client.objects.filter(domain_url = search_text)
     else:
 	    data = []
