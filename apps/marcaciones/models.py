@@ -33,7 +33,7 @@ class Marcaciones(models.Model):
             except:
                 marcacion_previa = Marcaciones.objects.filter(usuario=self.usuario)
             print(marcacion_previa)
-            if marcacion_previa.count >0:
+            if marcacion_previa.count() > 0:
                 if(marcacion_previa.estado == '0'):
                     self.estado = '1'
                 else:
