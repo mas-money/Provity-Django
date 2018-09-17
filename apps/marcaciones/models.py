@@ -27,14 +27,20 @@ class Marcaciones(models.Model):
     '''
     def save(self, *args, **kwargs):
         print("Chequeamos si es salida o entrada")
-        print(self)
         if self.usuario:
-            marcacion_previa = Marcaciones.objects.filter(usuario=self.usuario).latest('id')
+            try:
+                marcacion_previa = Marcaciones.objects.filter(usuario=self.usuario).latest('id')
+            except:
+                marcacion_previa = Marcaciones.objects.filter(usuario=self.usuario)
             print(marcacion_previa)
-            if(marcacion_previa.estado == '0'):
-                self.estado = '1'
+            if marcacion_previa.count >0:
+                if(marcacion_previa.estado == '0'):
+                    self.estado = '1'
+                else:
+                    self.estado = '0'
             else:
                 self.estado = '0'
+
         super(Marcaciones, self).save(*args, **kwargs)
 
 class Rondas(models.Model):

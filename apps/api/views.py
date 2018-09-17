@@ -59,7 +59,7 @@ class MarcacioneViewSet(generics.ListAPIView):
 class MarcacionesViewSet(ModelViewSet):
     serializer_class = MarcacioneSerializer
     queryset = Marcaciones.objects.all().order_by('-id')
-    permission_classes=(IsAuthenticated,)
+    permission_classes=(IsAuthenticated,UserPermissionsObj)
 		
 class LastCheckViewSet(ModelViewSet):
     serializer_class = UltimaMarcacionSerializer
