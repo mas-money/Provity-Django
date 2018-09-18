@@ -4,31 +4,33 @@
 {% block contenido %}
 <div class="ks-dashboard-tabbed-sidebar-widgets">
     <div class="row">
-        <div class="col-xl-4">
-            <div class="card ks-card-widget ks-widget-payment-total-amount ks-purple-light">
-                <h5 class="card-header">
-                    Total de Marcaciones
+        {% if cliente.modulo == '0' %}
+            <div class="col-xl-4">
+                <div class="card ks-card-widget ks-widget-payment-total-amount ks-purple-light">
+                    <h5 class="card-header">
+                        Total de Marcaciones
 
-                    <div class="dropdown ks-control">
-                        <a class="btn btn-link ks-no-text ks-no-arrow" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                            <span class="ks-icon la la-ellipsis-h"></span>
-                        </a>
-                    </div>
-                </h5>
-                <div class="card-block">
-                    <div class="ks-payment-total-amount-item-icon-block">
-                        <span class="ks-icon la la-check ks-icon"></span>
-                    </div>
-
-                    <div class="ks-payment-total-amount-item-body">
-                        <div class="ks-payment-total-amount-item-amount">
-                            <span class="ks-amount">{{ marcantes_entrada }}</span>
+                        <div class="dropdown ks-control">
+                            <a class="btn btn-link ks-no-text ks-no-arrow" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                <span class="ks-icon la la-ellipsis-h"></span>
+                            </a>
                         </div>
+                    </h5>
+                    <div class="card-block">
+                        <div class="ks-payment-total-amount-item-icon-block">
+                            <span class="ks-icon la la-check ks-icon"></span>
+                        </div>
+
+                        <div class="ks-payment-total-amount-item-body">
+                            <div class="ks-payment-total-amount-item-amount">
+                                <span class="ks-amount">{{ marcantes_entrada }}</span>
+                            </div>
+                        </div>
+                        
                     </div>
-                    
                 </div>
             </div>
-        </div>
+        {% endif %}
         <div class="col-xl-4">
             <div class="card ks-card-widget ks-widget-payment-total-amount ks-green-light">
                 <h5 class="card-header">

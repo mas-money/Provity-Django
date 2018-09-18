@@ -346,6 +346,7 @@
             </div>
             <div class="row justify-content-md-center">
                 <div class="col col-md-8">
+                    {% csrf_token %}
                     <p>Datos de la Empresa</p>
                     <div class="row form-group">
                         <div class="col-md-6">
@@ -361,6 +362,14 @@
                         </div>
                         <div class="col-md-6">
                             <input id="email" type="text" class="form-control" placeholder="Correo Electrónico">
+                        </div>
+                    </div>
+                    <div class="row form-group">
+                        <div class="col-md-6">
+                            <select id="modulo" type="text" class="form-control" placeholder="Teléfono" style="height: 55px !important;">
+                                <option value="0">Marcacion de Entrada/Salida</option>
+                                <option value="1">Trackeo de Flota</option>
+                            </select>
                         </div>
                     </div>
                     <p>URL de acceso</p>
@@ -492,6 +501,7 @@
                 var ruc             = document.getElementById("ruc").value
                 var url             = document.getElementById("url").value
                 var schema_data     = document.getElementById("schema_data").value
+                var modulo     = document.getElementById("modulo").value
                 // Step 2
                 var telefono    = document.getElementById("telefono").value
                 var email       = document.getElementById("email").value
@@ -516,6 +526,7 @@
                         "username"      : username,
                         "pass1"         : pass1,
                         "pass2"         : pass2,
+                        "modulo"        : modulo,
                     };
                     // AJAX SETUP
                     $.ajax({

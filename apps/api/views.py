@@ -4,6 +4,7 @@ from rest_framework.viewsets import ModelViewSet
 from apps.api.serializers import *
 # Importamos los diferentes modelos
 from apps.areas.models import *
+from apps.clientes.models import *
 from apps.marcaciones.models import *
 from apps.tracking.models import *
 from apps.usuarios.models import *
@@ -89,6 +90,18 @@ class LiveTrackViewSet(ModelViewSet):
 class ReportesViewSet(ModelViewSet):
     serializer_class = ReporteSerializer
     queryset = Reporte.objects.all().order_by('-id')
+    permission_classes=(IsAuthenticated,UserPermissionsObj)
+        
+class EmpresaViewSet(generics.ListAPIView):
+    serializer_class = EmpresaSerializer
+    queryset = Client.objects.all().order_by('-id')
+    def get_queryset(self):
+        """
+        This view should return a list of all the purchases for
+        the user as determined by the username portion of the URL.
+        """
+        usuario = str(self.kwargs['empresa'])+'.provity.com.py'
+        return Client.objects.filter(domain_url=usuario)
     permission_classes=(IsAuthenticated,UserPermissionsObj)
 
 

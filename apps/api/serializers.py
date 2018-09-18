@@ -5,6 +5,7 @@ from django.contrib.auth.models import User
 import rest_framework.serializers
 # Importamos los diferentes modelos
 from apps.areas.models import *
+from apps.clientes.models import *
 from apps.marcaciones.models import *
 from apps.tracking.models import *
 from apps.usuarios.models import *
@@ -47,6 +48,11 @@ class ReporteSerializer(serializers.ModelSerializer):
     class Meta:
         model = Reporte
         fields = ('usuario','texto','timestamp')
+
+class EmpresaSerializer(ModelSerializer):
+    class Meta:
+        model = Client
+        fields = ('razon_social','modulo','domain_url')
 
 
 

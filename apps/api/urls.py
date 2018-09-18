@@ -16,4 +16,5 @@ router.register(r'reporte',ReportesViewSet,base_name='reportes')
 urlpatterns = [
     url(r'^api/',include(router.urls)),
 	url('^api/marcacion/(?P<usuario>.+)/$', MarcacioneViewSet.as_view()),
+	url('^api/empresa/(?P<empresa>.+)/$', EmpresaViewSet.as_view()),
 ]
