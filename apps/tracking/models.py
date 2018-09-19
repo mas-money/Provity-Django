@@ -9,7 +9,8 @@ class Track(models.Model):
     latitud = models.CharField(max_length=200, blank=True, null=True)
     longitud = models.CharField(max_length=200, blank=True, null=True)
     timestamp = models.DateTimeField(auto_now_add=True, auto_now=False)
-
+    
+    '''
     def save(self, *args, **kwargs):
             similars = Track.objects.filter(usuario=self.usuario)
             created = Track.objects.filter(usuario=self.usuario).count()
@@ -19,3 +20,4 @@ class Track(models.Model):
                 super(Track, self).save(*args, **kwargs)
             else:
                 super(Track, self).save(*args, **kwargs)
+    '''
