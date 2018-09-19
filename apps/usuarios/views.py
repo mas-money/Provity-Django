@@ -15,6 +15,7 @@ from django.views.decorators.csrf import csrf_protect, ensure_csrf_cookie,csrf_e
 #from django_tenants.utils import tenant_context
 from tenant_schemas.utils import *
 from django.db import connection
+from django.db.models import Count, F
 
 @csrf_protect
 @ensure_csrf_cookie	
@@ -54,7 +55,11 @@ def tipo_empresa(request):
 
 @login_required(None,'login','/login/')
 def index(request):
-    tracks = Track.objects.all().distinct('usuario')
+    tracks = Track.objects.all().order_by('usuario', '-timestamp').distinct('usuario')
+    for track in tracks:
+        print("Usuario = "+str(track.usuario))
+        print("Last Check = "+str(track.timestamp))
+        print("Latitud = "+str(track.latitud))
     hoy = date.today()
     # obtener todos los repositores que marcaron presencia hoy
     # Intentamos obtener cuantos usuarios hicieron sus marcaciones en el dia.

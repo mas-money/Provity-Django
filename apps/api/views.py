@@ -84,7 +84,7 @@ class TrackViewSet(ModelViewSet):
         
 class LiveTrackViewSet(ModelViewSet):
     serializer_class = TrackSerializer
-    queryset = Track.objects.all().order_by('-id')
+    queryset = Track.objects.all().order_by('usuario', '-timestamp').distinct('usuario')
     permission_classes=(UserPermissionsObj,)
 
 class ReportesViewSet(ModelViewSet):
