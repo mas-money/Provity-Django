@@ -54,7 +54,7 @@ def tipo_empresa(request):
 
 @login_required(None,'login','/login/')
 def index(request):
-    tracks = Track.objects.all()
+    tracks = Track.objects.all().distinct('usuario')
     hoy = date.today()
     # obtener todos los repositores que marcaron presencia hoy
     # Intentamos obtener cuantos usuarios hicieron sus marcaciones en el dia.
