@@ -6,6 +6,7 @@ from django.contrib.auth.models import User
 
 class Track(models.Model):
     usuario = models.ForeignKey(User, on_delete=models.CASCADE)
+    speed = models.CharField(max_length=200, blank=True, null=True)
     latitud = models.CharField(max_length=200, blank=True, null=True)
     longitud = models.CharField(max_length=200, blank=True, null=True)
     timestamp = models.DateTimeField(auto_now_add=True, auto_now=False)

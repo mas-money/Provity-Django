@@ -32,7 +32,7 @@ class TrackSerializer(ModelSerializer):
     user = UserSerializer(source='usuario', required=False, read_only= True)
     class Meta:
         model = Track
-        fields = ('id','usuario','user','latitud','longitud','timestamp')
+        fields = ('id','usuario','user','latitud','longitud','timestamp','speed')
  
 class UsuarioSerializer(serializers.ModelSerializer):
     class Meta:
